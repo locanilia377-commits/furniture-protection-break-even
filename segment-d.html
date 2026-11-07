@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Начнём с оценки по фото. Если потребуется осмотр, согласуем стоимость выезда и диагностики до назначения мастера.">
+  <meta name="description" content="Начнём с оценки по фото. Если потребуется осмотр, заранее согласуем стоимость выезда и диагностики.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
-  <title>Узнайте, можно ли оклеить повреждённую столешницу — Мебель Бронь</title>
-  <link rel="stylesheet" href="segment.css">
+  <title>Оценка повреждённой столешницы — Мебель Бронь</title>
+  <link rel="stylesheet" href="segment.css?v=2">
 </head>
 <body>
   <header class="wrap bar">
@@ -17,76 +17,85 @@
     </nav>
   </header>
   <main class="wrap">
+    <header class="hero">
+      <p class="kicker">Царапины, сколы и пятна</p>
+      <h1>Оценка повреждённой столешницы</h1>
+      <p class="lead">Под прозрачной плёнкой часть дефектов может остаться заметной. Сначала оценим состояние поверхности.</p>
+      <a class="button cta" href="#estimate">Перейти к заявке</a>
+    </header>
     <div class="layout">
-      <section aria-labelledby="title">
-        <p class="kicker">Царапины, сколы или пятна</p>
-        <h1 id="title">Узнайте, можно ли оклеить повреждённую столешницу</h1>
-        <p class="lead">Если поверхность уже поцарапана или на ней есть сколы, важно заранее понять, что останется видно и сколько будет стоить подготовка.</p>
-        <p>Проверим основание. Если потребуется подготовка, вынесем её в отдельную строку сметы и согласуем ожидаемый результат.</p>
-        <p class="offer">Начнём с оценки по фото. Если потребуется осмотр, согласуем стоимость выезда и диагностики до назначения мастера.</p>
-        <a class="button cta" href="#estimate">Запросить оценку повреждения</a>
+      <section class="card" aria-labelledby="offer-title">
+        <h2 id="offer-title">Что предлагаем</h2>
+        <p>Проверим, подходит ли столешница для оклейки и нужна ли подготовка.</p>
+        <p class="offer">Начнём с оценки по фото. Если потребуется осмотр, заранее согласуем стоимость выезда и диагностики.</p>
         <ul class="benefits">
-          <li>Уточним совместимость основания с плёнкой.</li><li>Согласуем условия диагностики до выезда.</li><li>Обсудим результат, который можно получить после подготовки.</li>
+          <li>Уточним, какие участки требуют осмотра.</li>
+          <li>Если подготовка возможна, укажем её отдельно в смете.</li>
+          <li>До начала работ согласуем ожидаемый результат.</li>
         </ul>
       </section>
       <section class="card" id="estimate" aria-labelledby="estimate-title">
-        <h2 id="estimate-title">Оценка поверхности по фото</h2>
-        <p class="subtle" id="estimate-intro">Опишите дефект. Для оценки подготовьте общий вид, фото торца и крупный план повреждения при боковом свете.</p>
-        <form id="request-form" data-topic="D — оценка повреждённой поверхности" aria-describedby="estimate-intro" hidden>
+        <h2 id="estimate-title">Заявка на расчёт</h2>
+        <p class="subtle" id="estimate-intro">Заполните поля. Фото можно приложить в WhatsApp перед отправкой.</p>
+        <noscript><p>Чтобы запросить расчёт, воспользуйтесь контактами ниже.</p></noscript>
+        <form id="request-form" data-topic="D — оценка повреждённой столешницы" aria-describedby="estimate-intro" hidden>
           <div class="fields">
-            <label class="field">Город
-              <input name="Город" type="text" autocomplete="address-level2" maxlength="80" required>
-            </label>
-            
-            <label class="field">Материал поверхности
-              
-              <select name="Материал поверхности" required>
-                <option value="">Выберите вариант</option>
-                <option>Камень или композит</option><option>Дерево или шпон</option><option>Стекло</option><option>Пластик или ламинат</option><option>Другой материал</option><option>Не знаю</option>
-              </select>
-              
-            </label>
-            
-            <label class="field">Размеры, см <span class="subtle">(необязательно)</span>
-              
-              <input name="Размеры, см" type="text" maxlength="120" placeholder="Например, 120 × 80">
-              
-            </label>
-            
-            <label class="field wide">Что повреждено
-              
-              <textarea name="Что повреждено" rows="2" maxlength="380" placeholder="Где дефект и как он выглядит" required></textarea>
-              
-            </label>
-            
-            <label class="field wide">Что уже пробовали сделать <span class="subtle">(необязательно)</span>
-              
-              <input name="Что уже пробовали сделать" type="text" maxlength="120" placeholder="Например, полировали или очищали пятно">
-              
-            </label>
-            
+            <div class="field">
+              <label for="field-1">Город</label>
+              <input id="field-1" name="Город" type="text" maxlength="80" autocomplete="address-level2" required>
+            </div>
+            <div class="field">
+              <label for="field-2">Материал столешницы</label>
+              <select id="field-2" name="Материал столешницы" required>
+                  <option value="">Выберите вариант</option>
+                  <option>Камень или композит</option>
+                  <option>Дерево или шпон</option>
+                  <option>Стекло</option>
+                  <option>Пластик или ламинат</option>
+                  <option>Другой материал</option>
+                  <option>Не знаю</option>
+                </select>
+            </div>
+            <div class="field wide">
+              <label for="field-3">Описание повреждения</label>
+              <textarea id="field-3" name="Описание повреждения" rows="1" maxlength="380" placeholder="Например, скол на углу" required></textarea>
+            </div>
           </div>
+          <details class="extra-fields">
+            <summary>Дополнительные сведения</summary>
+            <div class="fields">
+            <div class="field">
+              <label for="optional-1">Размеры, см</label>
+              <input id="optional-1" name="Размеры, см" type="text" maxlength="120" placeholder="Например, 120 × 80">
+            </div>
+            <div class="field">
+              <label for="optional-2">Что уже пробовали сделать</label>
+              <input id="optional-2" name="Что уже пробовали сделать" type="text" maxlength="120" placeholder="Например, полировали поверхность или удаляли пятно">
+            </div>
+            </div>
+          </details>
           <button class="button" type="submit">Подготовить заявку</button>
-          <p class="subtle">Проверьте текст перед переходом в WhatsApp. Фото можно прикрепить в чате перед отправкой.</p>
         </form>
         <section class="prepared" id="prepared" aria-labelledby="prepared-title" hidden>
-          <h3 id="prepared-title" tabindex="-1">Заявка готова</h3>
-          <label class="field">Текст заявки
-            <textarea id="request-text" rows="6" readonly></textarea>
-          </label>
+          <h3 id="prepared-title" tabindex="-1">Проверьте текст заявки</h3>
+          <label class="field" for="request-text">Текст заявки</label>
+          <textarea id="request-text" rows="6" readonly></textarea>
           <div class="actions">
-            <a class="button" id="send-request">Открыть WhatsApp</a>
+            <a class="button" id="send-request">Открыть в WhatsApp</a>
             <button class="button secondary" type="button" id="copy-request">Скопировать текст</button>
           </div>
+          <p class="subtle">В чате вы сможете приложить фото и отправить заявку.</p>
           <p class="subtle" id="copy-status" role="status"></p>
         </section>
-        <p class="subtle">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666-98-87</a></p>
+        <p class="subtle contacts">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666‑98‑87</a></p>
       </section>
     </div>
-    <section aria-labelledby="steps-title">
-      <h2 id="steps-title">Как проходит расчёт</h2>
+    <section class="process" aria-labelledby="steps-title">
+      <h2 id="steps-title">Порядок работы</h2>
       <ol class="steps">
-        <li><h3>Проверяем по фото</h3><p>Смотрим материал, торец и крупный план повреждения.</p></li><li><h3>Уточняем необходимость осмотра</h3><p>Если фотографий недостаточно, заранее согласуем условия выезда и диагностики.</p></li><li><h3>Согласуем вариант работ</h3><p>Если оклейка возможна, отдельно оцениваем подготовку и согласуем ожидаемый результат.</p></li>
+        <li><h3>Проверяем фотографии</h3><p>Пришлите общий вид, фото торца и крупный план дефекта при боковом свете.</p></li>
+        <li><h3>Уточняем условия осмотра</h3><p>Если по фото сложно оценить состояние столешницы, согласуем выезд и стоимость диагностики.</p></li>
+        <li><h3>Готовим смету</h3><p>Если оклейка возможна, оценим подготовку и монтаж отдельно.</p></li>
       </ol>
     </section>
   </main>
