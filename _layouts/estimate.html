@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ page.offer | escape }}">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-aFcbFyRnF2tFnfWmLF0RquHVqfiZopHnuY1nrNsW894='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>{{ page.title | escape }} — Мебель Бронь</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: system-ui, sans-serif;
+      --page: #f3f6fa;
+      --card: #fff;
+      --ink: #182537;
+      --muted: #4d5d70;
+      --line: #ccd8e5;
+      --accent: #225395;
+      --button: #224f8e;
+      --tint: #e6eef8;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --page: #101721;
+        --card: #172331;
+        --ink: #eef4fc;
+        --muted: #b5c4d6;
+        --line: #354960;
+        --accent: #a3c4ff;
+        --button: #265ca2;
+        --tint: #20354f;
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { scroll-padding-top: 1rem; }
+    body { margin: 0; color: var(--ink); background: var(--page); line-height: 1.55; }
+    a { color: var(--accent); text-underline-offset: 0.2em; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .wrap { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+    .bar, .links, .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem 1rem; }
+    .bar { justify-content: space-between; padding-block: 1.15rem; border-bottom: 1px solid var(--line); }
+    .brand { color: var(--ink); font-size: 1.13rem; font-weight: 800; text-decoration: none; }
+    .brand::before { content: ''; display: inline-block; width: 0.7em; height: 0.7em; margin-right: 0.5em; background: var(--accent); border-radius: 0.16em; }
+    .links { font-size: 0.92rem; }
+    .layout { display: grid; gap: clamp(1.5rem, 5vw, 4rem); padding-block: clamp(1.75rem, 5vw, 4.5rem) 2rem; align-items: start; }
+    .layout > * { min-width: 0; }
+    @media (min-width: 58rem) {
+      .layout { grid-template-columns: minmax(0, 1.14fr) minmax(0, 0.86fr); }
+    }
+    .kicker { display: inline-block; margin: 0 0 0.85rem; border-radius: 99rem; padding: 0.3rem 0.8rem; background: var(--tint); color: var(--accent); font-size: 0.84rem; font-weight: 700; }
+    h1, h2, h3 { line-height: 1.14; text-wrap: balance; }
+    h1 { margin: 0; max-width: 19ch; font-size: clamp(2.2rem, 5.4vw, 4.45rem); letter-spacing: -0.047em; }
+    h2 { margin: 0 0 0.65rem; font-size: clamp(1.35rem, 3vw, 1.75rem); letter-spacing: -0.025em; }
+    h3 { margin: 0 0 0.35rem; font-size: 1rem; }
+    p { margin: 0.55rem 0 0; }
+    .lead { max-width: 48ch; margin-top: 1rem; color: var(--muted); font-size: clamp(1.04rem, 2vw, 1.22rem); }
+    .offer { margin-top: 1.25rem; padding: 0.85rem 1rem; border-left: 3px solid var(--accent); border-radius: 0.25rem; background: var(--tint); font-weight: 650; }
+    .cta { margin-top: 1.15rem; }
+    .benefits { display: grid; gap: 0.45rem; margin: 1.35rem 0 0; padding-inline-start: 1.15rem; color: var(--muted); }
+    .card { padding: clamp(1rem, 3vw, 1.8rem); background: var(--card); border: 1px solid var(--line); border-radius: 1.15rem; box-shadow: 0 0.8rem 2.4rem #081b3720; }
+    .subtle { color: var(--muted); font-size: 0.9rem; }
+    .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; margin-block: 1rem; }
+    .field { display: grid; gap: 0.3rem; align-content: start; min-width: 0; font-weight: 620; font-size: 0.93rem; }
+    .wide { grid-column: 1 / -1; }
+    @media (max-width: 33rem) { .fields { grid-template-columns: 1fr; } }
+    input, select, textarea { display: block; width: 100%; min-width: 0; font: inherit; font-size: 1rem; font-weight: 400; color: var(--ink); background: var(--page); border: 1px solid var(--line); border-radius: 0.55rem; padding: 0.55rem 0.65rem; }
+    textarea { resize: vertical; }
+    .button { display: inline-flex; justify-content: center; align-items: center; padding: 0.65rem 0.95rem; min-height: 2.75rem; border: 1px solid transparent; border-radius: 0.55rem; color: #fff; background: var(--button); font: inherit; font-weight: 700; text-align: center; text-decoration: none; cursor: pointer; }
+    .button:hover { text-decoration: underline; }
+    .secondary { background: var(--card); border-color: var(--line); color: var(--ink); }
+    .prepared { margin-top: 1.15rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+    .prepared .actions { margin-top: 0.8rem; }
+    .steps { display: grid; gap: 0.85rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); list-style: none; padding: 0; margin: 0.9rem 0 0; counter-reset: step; }
+    .steps li { padding: 1rem; border-radius: 0.7rem; border: 1px solid var(--line); background: var(--card); counter-increment: step; }
+    .steps h3::before { content: '0' counter(step); display: block; margin-bottom: 0.35rem; color: var(--accent); font-size: 0.8rem; letter-spacing: 0.08em; }
+    .steps p { color: var(--muted); font-size: 0.93rem; }
+    footer { margin-top: 2.5rem; padding-block: 1rem 1.75rem; border-top: 1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <header class="wrap bar">
+    <a class="brand" href="./">Мебель Бронь</a>
+    <nav class="links" aria-label="Навигация по сайту">
+      <a href="./#segment-pages">Все предложения</a>
+      <a href="reviews.html">Исследование</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <div class="layout">
+      <section aria-labelledby="title">
+        <p class="kicker">{{ page.audience | escape }}</p>
+        <h1 id="title">{{ page.title | escape }}</h1>
+        <p class="lead">{{ page.problem | escape }}</p>
+        <p>{{ page.value | escape }}</p>
+        <p class="offer">{{ page.offer | escape }}</p>
+        <a class="button cta" href="#estimate">{{ page.cta | escape }}</a>
+        <ul class="benefits">
+          {% for benefit in page.benefits %}<li>{{ benefit | escape }}</li>{% endfor %}
+        </ul>
+      </section>
+      <section class="card" id="estimate" aria-labelledby="estimate-title">
+        <h2 id="estimate-title">{{ page.form_title | escape }}</h2>
+        <p class="subtle" id="estimate-intro">{{ page.form_intro | escape }}</p>
+        <form id="request-form" data-topic="{{ page.topic | escape }}" aria-describedby="estimate-intro" hidden>
+          <div class="fields">
+            <label class="field">Город
+              <input name="Город" type="text" autocomplete="address-level2" maxlength="80" required>
+            </label>
+            {% for field in page.fields %}
+            <label class="field{% if field.wide %} wide{% endif %}">{{ field.label | escape }}{% unless field.required %} <span class="subtle">(необязательно)</span>{% endunless %}
+              {% if field.options %}
+              <select name="{{ field.label | escape }}"{% if field.required %} required{% endif %}>
+                <option value="">Выберите вариант</option>
+                {% for option in field.options %}<option>{{ option | escape }}</option>{% endfor %}
+              </select>
+              {% elsif field.multiline %}
+              <textarea name="{{ field.label | escape }}" rows="2" maxlength="380" placeholder="{{ field.placeholder | escape }}"{% if field.required %} required{% endif %}></textarea>
+              {% elsif field.number %}
+              <input name="{{ field.label | escape }}" type="number" min="1" max="10000" step="1"{% if field.required %} required{% endif %}>
+              {% else %}
+              <input name="{{ field.label | escape }}" type="text" maxlength="120" placeholder="{{ field.placeholder | escape }}"{% if field.required %} required{% endif %}>
+              {% endif %}
+            </label>
+            {% endfor %}
+          </div>
+          <button class="button" type="submit">Подготовить заявку</button>
+          <p class="subtle">Проверьте текст перед переходом в WhatsApp. Фото можно прикрепить в чате перед отправкой.</p>
+        </form>
+        <section class="prepared" id="prepared" aria-labelledby="prepared-title" hidden>
+          <h3 id="prepared-title" tabindex="-1">Заявка готова</h3>
+          <label class="field">Текст заявки
+            <textarea id="request-text" rows="6" readonly></textarea>
+          </label>
+          <div class="actions">
+            <a class="button" id="send-request">Открыть WhatsApp</a>
+            <button class="button secondary" type="button" id="copy-request">Скопировать текст</button>
+          </div>
+          <p class="subtle" id="copy-status" role="status"></p>
+        </section>
+        <p class="subtle">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666-98-87</a></p>
+      </section>
+    </div>
+    <section aria-labelledby="steps-title">
+      <h2 id="steps-title">Как проходит расчёт</h2>
+      <ol class="steps">
+        {% for step in page.steps %}<li><h3>{{ step.title | escape }}</h3><p>{{ step.text | escape }}</p></li>{% endfor %}
+      </ol>
+    </section>
+  </main>
+  <footer class="wrap links">
+    <a href="./#segment-pages">Другие предложения</a>
+    <a href="./#price-comparison">Сравнение цен</a>
+    <a href="https://2gis.ru/makhachkala/firm/70000001105299044">Контакты в 2ГИС</a>
+  </footer>
+  <script>
+    const form = document.querySelector('#request-form');
+    const prepared = document.querySelector('#prepared');
+    const preview = document.querySelector('#request-text');
+    const send = document.querySelector('#send-request');
+    const copy = document.querySelector('#copy-request');
+    const copyStatus = document.querySelector('#copy-status');
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      for (const field of form.querySelectorAll('input[required], textarea[required]')) {
+        field.setCustomValidity(field.value.trim() ? '' : 'Заполните это поле.');
+      }
+      if (!form.reportValidity()) return;
+
+      const lines = ['Здравствуйте! Хочу получить расчёт.', 'Тема — ' + form.dataset.topic];
+      for (const [label, value] of new FormData(form)) {
+        if (value.trim()) lines.push(label + ' — ' + value.trim());
+      }
+      preview.value = lines.join('\n');
+      const chat = new URL('https://wa.me/79896669887');
+      chat.searchParams.set('text', preview.value);
+      send.href = chat.toString();
+      copyStatus.textContent = '';
+      prepared.hidden = false;
+      document.querySelector('#prepared-title').focus();
+    });
+
+    form.addEventListener('input', event => {
+      event.target.setCustomValidity('');
+      prepared.hidden = true;
+    });
+
+    copy.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(preview.value);
+        copyStatus.textContent = 'Текст скопирован. Его можно вставить в чат.';
+      } catch {
+        preview.focus();
+        preview.select();
+        copyStatus.textContent = 'Текст выделен. Скопируйте его вручную.';
+      }
+    });
+
+    form.hidden = false;
+  </script>
+</body>
+</html>
