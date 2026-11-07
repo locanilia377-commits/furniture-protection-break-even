@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Оценим работу по фото и размерам. До монтажа согласуем внешний вид, границы покрытия и условия работ.">
+  <meta name="description" content="По фото и размерам подготовим предварительную смету. До монтажа согласуем границы оклейки.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
-  <title>Защитите новую столешницу до первых царапин — Мебель Бронь</title>
-  <link rel="stylesheet" href="segment.css">
+  <title>Защита нового стола или столешницы — Мебель Бронь</title>
+  <link rel="stylesheet" href="segment.css?v=2">
 </head>
 <body>
   <header class="wrap bar">
@@ -17,82 +17,95 @@
     </nav>
   </header>
   <main class="wrap">
+    <header class="hero">
+      <p class="kicker">Новая кухня или стол</p>
+      <h1>Защита нового стола или столешницы</h1>
+      <p class="lead">Посуда и ежедневная уборка могут оставлять следы. При выборе плёнки важно учесть фактуру поверхности и вид кромок.</p>
+      <a class="button cta" href="#estimate">Перейти к заявке</a>
+    </header>
     <div class="layout">
-      <section aria-labelledby="title">
-        <p class="kicker">Новая кухня или ценный стол</p>
-        <h1 id="title">Защитите новую столешницу до первых царапин</h1>
-        <p class="lead">На новой столешнице быстро появляются следы от посуды и уборки. При этом важно сохранить фактуру, блеск и вид кромок.</p>
-        <p>Подберём прозрачную плёнку под поверхность и согласуем финиш. При сдаче осмотрим покрытие и кромки вместе с вами.</p>
-        <p class="offer">Оценим работу по фото и размерам. До монтажа согласуем внешний вид, границы покрытия и условия работ.</p>
-        <a class="button cta" href="#estimate">Рассчитать защиту новой поверхности</a>
+      <section class="card" aria-labelledby="offer-title">
+        <h2 id="offer-title">Что предлагаем</h2>
+        <p>Подберём прозрачную плёнку с учётом материала и согласуем внешний вид покрытия.</p>
+        <p class="offer">По фото и размерам подготовим предварительную смету. До монтажа согласуем границы оклейки.</p>
         <ul class="benefits">
-          <li>Финиш и границы покрытия согласуем до монтажа.</li><li>В смете укажем покрытие, подготовку, монтаж и условия выезда.</li><li>При приёмке осмотрим поверхность при боковом свете.</li>
+          <li>По фото проверим, есть ли вырезы и сложные кромки.</li>
+          <li>В смете укажем материалы, подготовку, монтаж и выезд.</li>
+          <li>После монтажа вместе проверим поверхность и кромки.</li>
         </ul>
       </section>
       <section class="card" id="estimate" aria-labelledby="estimate-title">
-        <h2 id="estimate-title">Расчёт защиты столешницы или стола</h2>
-        <p class="subtle" id="estimate-intro">Укажите размеры и материал. Для оценки подготовьте общий вид изделия и фото торца.</p>
-        <form id="request-form" data-topic="A — защита новой столешницы или стола" aria-describedby="estimate-intro" hidden>
+        <h2 id="estimate-title">Заявка на расчёт</h2>
+        <p class="subtle" id="estimate-intro">Заполните поля. Фото можно приложить в WhatsApp перед отправкой.</p>
+        <noscript><p>Чтобы запросить расчёт, воспользуйтесь контактами ниже.</p></noscript>
+        <form id="request-form" data-topic="A — защита нового стола или столешницы" aria-describedby="estimate-intro" hidden>
           <div class="fields">
-            <label class="field">Город
-              <input name="Город" type="text" autocomplete="address-level2" maxlength="80" required>
-            </label>
-            
-            <label class="field">Изделие
-              
-              <select name="Изделие" required>
-                <option value="">Выберите вариант</option>
-                <option>Столешница</option><option>Обеденный стол</option><option>Другое</option>
-              </select>
-              
-            </label>
-            
-            <label class="field">Размеры, см
-              
-              <input name="Размеры, см" type="text" maxlength="120" placeholder="Например, 120 × 80" required>
-              
-            </label>
-            
-            <label class="field">Материал
-              
-              <select name="Материал" required>
-                <option value="">Выберите вариант</option>
-                <option>Натуральный камень</option><option>Кварц или композит</option><option>Дерево или шпон</option><option>Стекло</option><option>Другой материал</option><option>Не знаю</option>
-              </select>
-              
-            </label>
-            
-            <label class="field">Предпочтительный финиш <span class="subtle">(необязательно)</span>
-              
-              <select name="Предпочтительный финиш">
-                <option value="">Выберите вариант</option>
-                <option>Матовый</option><option>Глянцевый</option><option>Нужна помощь с выбором</option>
-              </select>
-              
-            </label>
-            
+            <div class="field">
+              <label for="field-1">Город</label>
+              <input id="field-1" name="Город" type="text" maxlength="80" autocomplete="address-level2" required>
+            </div>
+            <div class="field">
+              <label for="field-2">Изделие</label>
+              <select id="field-2" name="Изделие" required>
+                  <option value="">Выберите вариант</option>
+                  <option>Столешница</option>
+                  <option>Обеденный стол</option>
+                  <option>Другое</option>
+                </select>
+            </div>
+            <div class="field">
+              <label for="field-3">Размеры, см</label>
+              <input id="field-3" name="Размеры, см" type="text" maxlength="120" placeholder="Например, 120 × 80" required>
+            </div>
+            <div class="field">
+              <label for="field-4">Материал</label>
+              <select id="field-4" name="Материал" required>
+                  <option value="">Выберите вариант</option>
+                  <option>Натуральный камень</option>
+                  <option>Кварц или композит</option>
+                  <option>Дерево или шпон</option>
+                  <option>Стекло</option>
+                  <option>Другой материал</option>
+                  <option>Не знаю</option>
+                </select>
+            </div>
           </div>
+          <details class="extra-fields">
+            <summary>Дополнительные сведения</summary>
+            <div class="fields">
+            <div class="field wide">
+              <label for="optional-1">Вид покрытия</label>
+              <select id="optional-1" name="Вид покрытия">
+                  <option value="">Выберите вариант</option>
+                  <option>Матовый</option>
+                  <option>Глянцевый</option>
+                  <option>Нужна помощь с выбором</option>
+                </select>
+            </div>
+            </div>
+          </details>
           <button class="button" type="submit">Подготовить заявку</button>
-          <p class="subtle">Проверьте текст перед переходом в WhatsApp. Фото можно прикрепить в чате перед отправкой.</p>
         </form>
         <section class="prepared" id="prepared" aria-labelledby="prepared-title" hidden>
-          <h3 id="prepared-title" tabindex="-1">Заявка готова</h3>
-          <label class="field">Текст заявки
-            <textarea id="request-text" rows="6" readonly></textarea>
-          </label>
+          <h3 id="prepared-title" tabindex="-1">Проверьте текст заявки</h3>
+          <label class="field" for="request-text">Текст заявки</label>
+          <textarea id="request-text" rows="6" readonly></textarea>
           <div class="actions">
-            <a class="button" id="send-request">Открыть WhatsApp</a>
+            <a class="button" id="send-request">Открыть в WhatsApp</a>
             <button class="button secondary" type="button" id="copy-request">Скопировать текст</button>
           </div>
+          <p class="subtle">В чате вы сможете приложить фото и отправить заявку.</p>
           <p class="subtle" id="copy-status" role="status"></p>
         </section>
-        <p class="subtle">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666-98-87</a></p>
+        <p class="subtle contacts">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666‑98‑87</a></p>
       </section>
     </div>
-    <section aria-labelledby="steps-title">
-      <h2 id="steps-title">Как проходит расчёт</h2>
+    <section class="process" aria-labelledby="steps-title">
+      <h2 id="steps-title">Порядок работы</h2>
       <ol class="steps">
-        <li><h3>Уточняем поверхность</h3><p>Смотрим материал, размеры, кромки и вырезы по фото.</p></li><li><h3>Согласуем покрытие и смету</h3><p>Определяем финиш и границы оклейки. Уточняем подготовку, выезд и гарантийные условия.</p></li><li><h3>Принимаем работу вместе</h3><p>После монтажа проверяем поверхность и кромки, объясняем правила ухода.</p></li>
+        <li><h3>Смотрим фотографии</h3><p>Пришлите общий вид, фото торца и размеры изделия. Если есть вырезы, сфотографируйте и их.</p></li>
+        <li><h3>Согласуем работы</h3><p>Подбираем плёнку и уточняем смету, условия выезда и гарантию.</p></li>
+        <li><h3>Проверяем результат</h3><p>После монтажа осматриваем поверхность при боковом свете и объясняем правила ухода.</p></li>
       </ol>
     </section>
   </main>
