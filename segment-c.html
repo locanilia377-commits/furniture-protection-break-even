@@ -1,34 +1,94 @@
----
-layout: estimate
-title: Защитите стол, которым семья пользуется каждый день
-audience: Семейный стол или детская зона
-topic: C — защита одного стола дома
-problem: За одним столом едят, рисуют и делают уроки. Следы от напитков и фломастеров приходится оттирать, а клеёнка закрывает поверхность.
-value: Защитим самую нагруженную поверхность. Согласуем состав работ и объясним, чем протирать стол после монтажа.
-offer: Подготовим две сметы по фото. Первую на верх стола, вторую с кромками или дополнительной поверхностью, если материал это позволяет.
-cta: Рассчитать оклейку одного стола
-form_title: Расчёт оклейки одного стола
-form_intro: Пришлите размеры и укажите, что чаще всего оставляет следы. Для оценки подготовьте фото сверху и с края.
-benefits:
-  - Можно начать с одной поверхности.
-  - В смете будет видно, какие участки входят в оклейку.
-  - После монтажа передадим правила ежедневного ухода.
-fields:
-  - label: Размеры стола, см
-    placeholder: Например, 120 × 80
-    required: true
-  - label: Что защитить
-    required: true
-    options: [Только верх стола, Верх и кромки, Стол и ещё одна поверхность, Нужна помощь с выбором]
-  - label: От чего чаще остаются следы
-    placeholder: Например, напитки или фломастеры
-    multiline: true
-    wide: true
-steps:
-  - title: Смотрим стол по фото
-    text: Уточняем размеры и состояние поверхности, проверяем кромки.
-  - title: Сравниваем состав работ
-    text: Рассчитываем верх стола и дополнительный вариант для совместимых поверхностей.
-  - title: Объясняем уход
-    text: После монтажа рассказываем, чем протирать плёнку и какие нагрузки для неё допустимы.
----
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Подготовим две сметы по фото. Первую на верх стола, вторую с кромками или дополнительной поверхностью, если материал это позволяет.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Защитите стол, которым семья пользуется каждый день — Мебель Бронь</title>
+  <link rel="stylesheet" href="segment.css">
+</head>
+<body>
+  <header class="wrap bar">
+    <a class="brand" href="index.html">Мебель Бронь</a>
+    <nav class="links" aria-label="Навигация по сайту">
+      <a href="index.html#segment-pages">Все предложения</a>
+      <a href="https://locanilia377-commits.github.io/furniture-protection-break-even/reviews.html">Исследование</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <div class="layout">
+      <section aria-labelledby="title">
+        <p class="kicker">Семейный стол или детская зона</p>
+        <h1 id="title">Защитите стол, которым семья пользуется каждый день</h1>
+        <p class="lead">За одним столом едят, рисуют и делают уроки. Следы от напитков и фломастеров приходится оттирать, а клеёнка закрывает поверхность.</p>
+        <p>Защитим самую нагруженную поверхность. Согласуем состав работ и объясним, чем протирать стол после монтажа.</p>
+        <p class="offer">Подготовим две сметы по фото. Первую на верх стола, вторую с кромками или дополнительной поверхностью, если материал это позволяет.</p>
+        <a class="button cta" href="#estimate">Рассчитать оклейку одного стола</a>
+        <ul class="benefits">
+          <li>Можно начать с одной поверхности.</li><li>В смете будет видно, какие участки входят в оклейку.</li><li>После монтажа передадим правила ежедневного ухода.</li>
+        </ul>
+      </section>
+      <section class="card" id="estimate" aria-labelledby="estimate-title">
+        <h2 id="estimate-title">Расчёт оклейки одного стола</h2>
+        <p class="subtle" id="estimate-intro">Пришлите размеры и укажите, что чаще всего оставляет следы. Для оценки подготовьте фото сверху и с края.</p>
+        <form id="request-form" data-topic="C — защита одного стола дома" aria-describedby="estimate-intro" hidden>
+          <div class="fields">
+            <label class="field">Город
+              <input name="Город" type="text" autocomplete="address-level2" maxlength="80" required>
+            </label>
+            
+            <label class="field">Размеры стола, см
+              
+              <input name="Размеры стола, см" type="text" maxlength="120" placeholder="Например, 120 × 80" required>
+              
+            </label>
+            
+            <label class="field">Что защитить
+              
+              <select name="Что защитить" required>
+                <option value="">Выберите вариант</option>
+                <option>Только верх стола</option><option>Верх и кромки</option><option>Стол и ещё одна поверхность</option><option>Нужна помощь с выбором</option>
+              </select>
+              
+            </label>
+            
+            <label class="field wide">От чего чаще остаются следы <span class="subtle">(необязательно)</span>
+              
+              <textarea name="От чего чаще остаются следы" rows="2" maxlength="380" placeholder="Например, напитки или фломастеры"></textarea>
+              
+            </label>
+            
+          </div>
+          <button class="button" type="submit">Подготовить заявку</button>
+          <p class="subtle">Проверьте текст перед переходом в WhatsApp. Фото можно прикрепить в чате перед отправкой.</p>
+        </form>
+        <section class="prepared" id="prepared" aria-labelledby="prepared-title" hidden>
+          <h3 id="prepared-title" tabindex="-1">Заявка готова</h3>
+          <label class="field">Текст заявки
+            <textarea id="request-text" rows="6" readonly></textarea>
+          </label>
+          <div class="actions">
+            <a class="button" id="send-request">Открыть WhatsApp</a>
+            <button class="button secondary" type="button" id="copy-request">Скопировать текст</button>
+          </div>
+          <p class="subtle" id="copy-status" role="status"></p>
+        </section>
+        <p class="subtle">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666-98-87</a></p>
+      </section>
+    </div>
+    <section aria-labelledby="steps-title">
+      <h2 id="steps-title">Как проходит расчёт</h2>
+      <ol class="steps">
+        <li><h3>Смотрим стол по фото</h3><p>Уточняем размеры и состояние поверхности, проверяем кромки.</p></li><li><h3>Сравниваем состав работ</h3><p>Рассчитываем верх стола и дополнительный вариант для совместимых поверхностей.</p></li><li><h3>Объясняем уход</h3><p>После монтажа рассказываем, чем протирать плёнку и какие нагрузки для неё допустимы.</p></li>
+      </ol>
+    </section>
+  </main>
+  <footer class="wrap links">
+    <a href="index.html#segment-pages">Другие предложения</a>
+    <a href="index.html#price-comparison">Сравнение цен</a>
+    <a href="https://2gis.ru/makhachkala/firm/70000001105299044">Контакты в 2ГИС</a>
+  </footer>
+  <script src="segment.js" defer></script>
+</body>
+</html>
