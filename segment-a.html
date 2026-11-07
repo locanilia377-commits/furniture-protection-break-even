@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="По фото и размерам подготовим предварительную смету. До монтажа согласуем границы оклейки.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action https://docs.google.com; frame-src https://docs.google.com">
   <title>Защита нового стола или столешницы — Мебель Бронь</title>
-  <link rel="stylesheet" href="segment.css?v=2">
+  <link rel="stylesheet" href="segment.css?v=3">
 </head>
 <body>
   <header class="wrap bar">
@@ -36,9 +36,9 @@
       </section>
       <section class="card" id="estimate" aria-labelledby="estimate-title">
         <h2 id="estimate-title">Заявка на расчёт</h2>
-        <p class="subtle" id="estimate-intro">Заполните поля. Фото можно приложить в WhatsApp перед отправкой.</p>
+        <p class="subtle" id="estimate-intro">Заполните поля для расчёта. После отправки можно продолжить переписку в WhatsApp и приложить фото.</p>
         <noscript><p>Чтобы запросить расчёт, воспользуйтесь контактами ниже.</p></noscript>
-        <form id="request-form" data-topic="A — защита нового стола или столешницы" aria-describedby="estimate-intro" hidden>
+        <form id="request-form" data-segment="A" data-topic="A — защита нового стола или столешницы" aria-describedby="estimate-intro" hidden>
           <div class="fields">
             <div class="field">
               <label for="field-1">Город</label>
@@ -84,14 +84,23 @@
             </div>
             </div>
           </details>
-          <button class="button" type="submit">Подготовить заявку</button>
+          <div class="fields">
+            <div class="field wide">
+              <label for="lead-contact">Телефон или Telegram для ответа <span class="subtle">(необязательно)</span></label>
+              <input id="lead-contact" name="Контакт для ответа" type="text" maxlength="100" placeholder="+7 … или @имя">
+            </div>
+          </div>
+          <button class="button" type="submit">Отправить заявку</button>
+          <p class="subtle">Данные используем для расчёта и ответа по указанному контакту.</p>
         </form>
         <section class="prepared" id="prepared" aria-labelledby="prepared-title" hidden>
-          <h3 id="prepared-title" tabindex="-1">Проверьте текст заявки</h3>
+          <h3 id="prepared-title" tabindex="-1">Заявка и WhatsApp</h3>
+          <p class="subtle" id="sheet-status" role="status"></p>
+          <iframe class="receipt" id="sheet-receipt" name="sheet-receipt" title="Результат отправки заявки" hidden></iframe>
           <label class="field" for="request-text">Текст заявки</label>
           <textarea id="request-text" rows="6" readonly></textarea>
           <div class="actions">
-            <a class="button" id="send-request">Открыть в WhatsApp</a>
+            <a class="button" id="send-request" target="_blank" rel="noopener noreferrer">Открыть в WhatsApp</a>
             <button class="button secondary" type="button" id="copy-request">Скопировать текст</button>
           </div>
           <p class="subtle">В чате вы сможете приложить фото и отправить заявку.</p>
@@ -114,6 +123,6 @@
     <a href="index.html#price-comparison">Сравнение цен</a>
     <a href="https://2gis.ru/makhachkala/firm/70000001105299044">Контакты в 2ГИС</a>
   </footer>
-  <script src="segment.js" defer></script>
+  <script src="segment.js?v=leads-1" defer></script>
 </body>
 </html>
