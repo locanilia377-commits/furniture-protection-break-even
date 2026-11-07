@@ -67,10 +67,12 @@ textarea { resize: vertical; }
 .contacts { margin-top: 0.9rem; }
 .button { display: inline-flex; justify-content: center; align-items: center; padding: 0.65rem 0.95rem; min-height: 2.75rem; border: 1px solid transparent; border-radius: 0.55rem; color: #fff; background: var(--button); font: inherit; font-weight: 700; text-align: center; text-decoration: none; cursor: pointer; }
 .button:hover { text-decoration: underline; }
+.button:disabled { opacity: 0.65; cursor: default; text-decoration: none; }
 .secondary { background: var(--card); border-color: var(--line); color: var(--ink); }
 .prepared { margin-top: 1.15rem; padding-top: 1rem; border-top: 1px solid var(--line); }
 .prepared label { margin-block: 0.65rem 0.25rem; }
 .prepared .actions { margin-top: 0.8rem; }
+.receipt { display: block; width: 100%; height: 12rem; margin-block: 0.65rem; background: #fff; border: 1px solid var(--line); border-radius: 0.55rem; }
 .process { margin-top: 1.65rem; }
 .steps { display: grid; gap: 0.85rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); list-style: none; padding: 0; margin: 0.9rem 0 0; counter-reset: step; }
 .steps li { padding: 1rem; border-radius: 0.7rem; border: 1px solid var(--line); background: var(--card); counter-increment: step; }
