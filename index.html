@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-q1lMoFgWtBJPnwwnK5qeuQ403KWq7y45BmTyVg7rbPk='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-jfEzbKcNyokoBWQMw4rlymPK8PTw3CPdr5xe+V/4+hE='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
   <title>Защита мебели в России — исследование рынка B2C и B2B</title>
 <style>
     :root {
@@ -40,7 +40,7 @@
     .fields, .metrics { display: grid; gap: 0.65rem; grid-template-columns: repeat(auto-fit, minmax(min(8rem, 100%), 1fr)); }
     .table-group { margin: 0 0 0.8rem; padding: 0.7rem; border: 1px solid var(--line); border-radius: 0.6rem; }
     label { display: grid; gap: 0.25rem; min-width: 0; font-size: 0.875rem; color: var(--muted); }
-    input, button {
+    input, select, button {
       font: inherit;
       color: var(--ink);
       border: 1px solid var(--line);
@@ -48,11 +48,11 @@
       padding: 0.4rem 0.55rem;
       background: var(--surface);
     }
-    input { inline-size: 100%; font-size: 1rem; }
+    input, select { inline-size: 100%; font-size: 1rem; }
     input[aria-invalid="true"] { border-color: var(--accent); outline: 1px solid var(--accent); }
     button { cursor: pointer; }
     button[aria-pressed="true"] { border-color: var(--accent); background: var(--selected); }
-    :is(button, input):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    :is(button, input, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .table-group button { margin-top: 0.65rem; }
     .pricing { margin-top: 1rem; }
     .presets { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.65rem; }
@@ -118,6 +118,10 @@
     .table-scroll tbody tr:last-child > * { border-bottom: 0; }
     .table-scroll td:first-child { font-weight: 620; }
     .calculator-card { max-width: 48rem; margin-block: 1.35rem; line-height: 1.5; }
+    #price-status { margin-bottom: 0; }
+    #price-results [data-price-row] :is(td:nth-child(2), td:nth-child(3)) { white-space: pre-line; }
+    #price-results[data-product="table"] tr > :nth-child(3),
+    #price-results[data-product="countertop"] tr > :nth-child(2) { display: none; }
     .report-footer { margin-top: 2rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
     @media (min-width: 58rem) {
       .report-layout { grid-template-columns: 13.5rem minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: start; }
@@ -319,7 +323,7 @@
           <li><a href="#summary">Вывод для запуска</a></li>
           <li><a href="#market-scope">1. Что входит в рынок</a></li>
           <li><a href="#market-evidence">2. Что уже видно на рынке</a></li>
-          <li><a href="#price-comparison">Сравнение цен 120 × 80 см</a></li>
+          <li><a href="#price-comparison">Калькулятор сравнения цен</a></li>
           <li><a href="#audiences">3. Приоритетные аудитории и продукты</a></li>
           <li><a href="#economics">4. Размер возможности и экономика</a></li>
           <li><a href="#demand-validation">5. Как проверить спрос и выбрать предложение</a></li>
@@ -466,19 +470,38 @@
 </tbody></table>
 </div>
 <p>Чтобы сравнить монтажников, отправить один и тот же запрос с фотографиями, количеством предметов, нетто-площадью, материалом, типом финиша, кромками, вырезами и временем доступа. Запросить цену за объект и за повторную замену плёнки, идентификатор материала, срок до начала эксплуатации и письменные исключения из гарантии. Для HoReCa дополнительно отделить ночной выезд, демонтаж и работы по подготовке основания.</p>
-<h3 id="price-comparison">Сколько стоит оклеить стол и столешницу 120 × 80 см</h3>
-<p>Сравниваем верх одной детали площадью 0,96 м² (10,3334 ft²). Валютные цены пересчитаны в рубли по официальным курсам Банка России, действующим с 7 ноября 2026 года. «От» обозначает опубликованную стартовую цену, «≈» — расчёт по ставке. Кромки, вырезы, подготовку поверхности и выезд оценивают отдельно, если поставщик не включил их в тариф. <a href="https://www.cbr.ru/currency_base/daily/?UniDbQuery.Posted=True&amp;UniDbQuery.To=07.11.2026">Курсы Банка России</a></p>
-<p>Для расчёта использованы 18,1775 ₽ за 100 KZT, 87,2514 ₽ за 100 INR, 82,1386 ₽ за 1 USD и 27,4518 ₽ за 1 BYN.</p>
-<p>Цену или расчётный ориентир хотя бы для одного изделия удалось получить у 5 из 21 оператора.</p>
+<h3 id="price-comparison">Калькулятор сравнения цен на оклейку</h3>
+<p>Сравниваем оклейку верхней поверхности одного прямоугольного изделия. «От» обозначает стартовую цену или нижний ориентир, «≈» — оценку по ставке. Кромки, вырезы, подготовку поверхности и выезд оценивают отдельно, если исполнитель не включил их в тариф.</p>
+<form id="price-calculator" class="chart calculator-card" aria-labelledby="price-comparison" hidden>
+  <div class="fields">
+    <label>Изделие
+      <select id="price-product">
+        <option value="both">Стол и столешница</option>
+        <option value="table">Стол</option>
+        <option value="countertop">Столешница</option>
+      </select>
+    </label>
+    <label>Длина, см
+      <input id="price-length" type="text" inputmode="decimal" maxlength="18" value="120" required>
+    </label>
+    <label>Ширина, см
+      <input id="price-width" type="text" inputmode="decimal" maxlength="18" value="80" required>
+    </label>
+  </div>
+  <p id="price-status" role="status">Площадь 0,96 м²</p>
+</form>
+<noscript><p>В таблице показан пример для 120 × 80 см. Для пересчёта размеров включите JavaScript.</p></noscript>
+<p>Валютные цены пересчитаны по курсам Банка России на 7 ноября 2026 года. Для расчёта использованы 18,1775 ₽ за 100 KZT, 87,2514 ₽ за 100 INR и 82,1386 ₽ за 1 USD. <a href="https://www.cbr.ru/currency_base/daily/?UniDbQuery.Posted=True&amp;UniDbQuery.To=07.11.2026">Курсы Банка России</a></p>
+<div id="price-results">
 <div class="table-scroll" role="region" aria-label="Сопоставимые цены на оклейку" tabindex="0">
 <table>
 <thead><tr><th scope="col">Исполнитель</th><th scope="col">Стол, ₽</th><th scope="col">Столешница, ₽</th><th scope="col">Основание расчёта</th></tr></thead>
 <tbody>
-<tr><td>ProtectWill<br><small>Москва и МО</small></td><td>от 12 000 ₽</td><td>от 15 000 ₽</td><td>Стартовые цены за изделие. Точную смету на 120 × 80 см определяют после замера. <a href="https://protectwill.ru/broneplenka-dlya-mebeli">Источник</a></td></tr>
-<tr><td>AR‑Tonirovka / ЭГИДА Aegis<br><small>Алматы и область</small></td><td>AR от 9 089 ₽<br>ЭГИДА ≈ 8 725 ₽</td><td>AR от 9 089 ₽<br>ЭГИДА ≈ 8 725 ₽</td><td>Два предложения одного оператора. У AR учтён минимум 50 000 ₸ за заказ. Тарифы по индексированным страницам. <a href="https://arm-tonirovka.kz/poliuretan.php">AR‑Tonirovka</a>, <a href="https://ppf-mebel.kz/">ЭГИДА</a></td></tr>
-<tr><td>Furni Shield<br><small>Хайдарабад, Индия</small></td><td>≈ 2 254–4 057 ₽</td><td>≈ 2 254–4 057 ₽</td><td>Оценка по ₹250–450/ft². Поштучный прайс приведён для других размеров. <a href="https://furnishield.in/furniture-protection-cost.html">Источник</a></td></tr>
-<tr><td>Vetro Power<br><small>Индия</small></td><td>≈ 4 508 / 4 959 / 5 410 ₽</td><td>≈ 4 508 / 4 959 / 5 410 ₽</td><td>Пакеты Essential, Premium и Elite по ₹500, ₹550 и ₹600 за ft². <a href="https://vetropower.in/pages/surface-protection-film">Источник</a></td></tr>
-<tr><td>Monumental Workx<br><small>Сан-Диего, США</small></td><td>по запросу</td><td>от 16 975 ₽</td><td>Нижний ориентир по $20/ft² за столешницу с монтажом. Минимум для малого объекта не опубликован. <a href="https://www.monumentalworkx.com/services/countertop-protection/">Источник</a></td></tr>
+<tr data-price-row="protectwill"><td>ProtectWill<br><small>Москва и МО</small></td><td>от 12 000 ₽</td><td>от 15 000 ₽</td><td>Стартовые цены за обеденный стол и столешницу до 2 м². Точная смета после замера. <a href="https://protectwill.ru/zashchita-stoleshnitsy">Источник</a></td></tr>
+<tr data-price-row="almaty"><td>AR‑Tonirovka / ЭГИДА Aegis<br><small>Алматы и область</small></td><td>AR от 9 089 ₽<br>ЭГИДА ≈ 8 725 ₽</td><td>AR от 9 089 ₽<br>ЭГИДА ≈ 8 725 ₽</td><td>Два предложения одного оператора. AR от 45 000 ₸/м², минимум 50 000 ₸ за заказ. ЭГИДА 50 000 ₸/м². <a href="https://arm-tonirovka.kz/poliuretan.php">AR‑Tonirovka</a>, <a href="https://ppf-mebel.kz/">ЭГИДА</a></td></tr>
+<tr data-price-row="furni"><td>Furni Shield<br><small>Хайдарабад, Индия</small></td><td>≈ 2 254–4 057 ₽</td><td>≈ 2 254–4 057 ₽</td><td>Оценка по ₹250–450/ft². Поштучный прайс приведён для отдельных типов мебели. <a href="https://furnishield.in/furniture-protection-cost.html">Источник</a></td></tr>
+<tr data-price-row="vetro"><td>Vetro Power<br><small>Индия</small></td><td>≈ 4 508 / 4 959 / 5 410 ₽</td><td>≈ 4 508 / 4 959 / 5 410 ₽</td><td>Пакеты Essential, Premium и Elite по ₹500, ₹550 и ₹600 за ft². <a href="https://vetropower.in/pages/surface-protection-film">Источник</a></td></tr>
+<tr data-price-row="monumental"><td>Monumental Workx<br><small>Сан-Диего, США</small></td><td>по запросу</td><td>от 16 975 ₽</td><td>Нижний ориентир по $20/ft² за столешницу с монтажом. Минимум для малого объекта не опубликован. <a href="https://www.monumentalworkx.com/services/countertop-protection/">Источник</a></td></tr>
 </tbody></table>
 </div>
 <details>
@@ -507,6 +530,7 @@
 </tbody></table>
 </div>
 </details>
+</div>
 <p><a href="https://docs.google.com/spreadsheets/d/1dB9smsgc1dHVfHrXYOvjNVN8kcKRgyvIkQSR7bIZenk/edit?gid=226071126#gid=226071126">Полное сравнение с плёнками, гарантиями и условиями выезда</a></p>
 <h2 id="audiences">3. Приоритетные аудитории и продукты</h2>
 <div class="table-scroll" role="region" aria-label="3. Приоритетные аудитории и продукты" tabindex="0">
@@ -864,6 +888,57 @@
     appendGroup(['20', '0,8', '0,8']);
     update();
     form.hidden = false;
+
+    const priceForm = document.querySelector('#price-calculator');
+    const priceProduct = document.querySelector('#price-product');
+    const priceLength = document.querySelector('#price-length');
+    const priceWidth = document.querySelector('#price-width');
+    const priceStatus = document.querySelector('#price-status');
+    const priceResults = document.querySelector('#price-results');
+    const priceRows = priceResults.querySelectorAll('[data-price-row]');
+    const rubles = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 });
+    const quote = 'по запросу';
+
+    function comparePrices(area) {
+      const squareFeet = area / (0.3048 ** 2);
+      const kzt = 18.1775 / 100;
+      const inr = 87.2514 / 100;
+      const usd = 82.1386;
+      const ar = rubles.format(Math.max(45000 * area, 50000) * kzt);
+      const aegis = rubles.format(50000 * area * kzt);
+      const almaty = `AR от ${ar} ₽\nЭГИДА ≈ ${aegis} ₽`;
+      const furni = `≈ ${rubles.format(250 * squareFeet * inr)}–${rubles.format(450 * squareFeet * inr)} ₽`;
+      const vetro = [500, 550, 600].map(rate => rubles.format(rate * squareFeet * inr)).join(' / ');
+      return {
+        protectwill: ['от 12 000 ₽', area <= 2 ? 'от 15 000 ₽' : quote],
+        almaty: [almaty, almaty],
+        furni: [furni, furni],
+        vetro: [`≈ ${vetro} ₽`, `≈ ${vetro} ₽`],
+        monumental: [quote, `от ${rubles.format(20 * squareFeet * usd)} ₽`],
+      };
+    }
+
+    function updatePrices() {
+      const length = readNumber(priceLength);
+      const width = readNumber(priceWidth);
+      const area = length * width / 10000;
+      const valid = Number.isFinite(area);
+      const prices = valid ? comparePrices(area) : {};
+      priceResults.dataset.product = priceProduct.value;
+      priceStatus.textContent = valid
+        ? `Площадь ${formatArea.format(area)} м²`
+        : 'Введите длину и ширину больше нуля в сантиметрах.';
+      for (const row of priceRows) {
+        const [table, countertop] = prices[row.dataset.priceRow] ?? ['—', '—'];
+        row.cells[1].textContent = table;
+        row.cells[2].textContent = countertop;
+      }
+    }
+
+    priceForm.addEventListener('submit', event => event.preventDefault());
+    priceForm.addEventListener('input', updatePrices);
+    updatePrices();
+    priceForm.hidden = false;
 
     const readingProgress = document.querySelector('#reading-progress');
     function updateReadingProgress() {
