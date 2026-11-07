@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Подготовим две сметы по фото. Первую на верх стола, вторую с кромками или дополнительной поверхностью, если материал это позволяет.">
+  <meta name="description" content="По фото рассчитаем оклейку верхней поверхности. Если материал позволяет, предложим вариант с оклейкой кромок или ещё одной поверхности.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
-  <title>Защитите стол, которым семья пользуется каждый день — Мебель Бронь</title>
-  <link rel="stylesheet" href="segment.css">
+  <title>Защита семейного стола — Мебель Бронь</title>
+  <link rel="stylesheet" href="segment.css?v=2">
 </head>
 <body>
   <header class="wrap bar">
@@ -17,70 +17,91 @@
     </nav>
   </header>
   <main class="wrap">
+    <header class="hero">
+      <p class="kicker">Для дома</p>
+      <h1>Защита семейного стола</h1>
+      <p class="lead">За одним столом едят, рисуют и делают уроки. Следы от напитков и фломастеров усложняют ежедневный уход.</p>
+      <a class="button cta" href="#estimate">Перейти к заявке</a>
+    </header>
     <div class="layout">
-      <section aria-labelledby="title">
-        <p class="kicker">Семейный стол или детская зона</p>
-        <h1 id="title">Защитите стол, которым семья пользуется каждый день</h1>
-        <p class="lead">За одним столом едят, рисуют и делают уроки. Следы от напитков и фломастеров приходится оттирать, а клеёнка закрывает поверхность.</p>
-        <p>Защитим самую нагруженную поверхность. Согласуем состав работ и объясним, чем протирать стол после монтажа.</p>
-        <p class="offer">Подготовим две сметы по фото. Первую на верх стола, вторую с кромками или дополнительной поверхностью, если материал это позволяет.</p>
-        <a class="button cta" href="#estimate">Рассчитать оклейку одного стола</a>
+      <section class="card" aria-labelledby="offer-title">
+        <h2 id="offer-title">Что предлагаем</h2>
+        <p>Подберём прозрачную плёнку для стола, которым вы пользуетесь чаще всего, и объясним, как за ней ухаживать.</p>
+        <p class="offer">По фото рассчитаем оклейку верхней поверхности. Если материал позволяет, предложим вариант с оклейкой кромок или ещё одной поверхности.</p>
         <ul class="benefits">
-          <li>Можно начать с одной поверхности.</li><li>В смете будет видно, какие участки входят в оклейку.</li><li>После монтажа передадим правила ежедневного ухода.</li>
+          <li>В смете укажем, какие участки входят в каждый вариант.</li>
+          <li>Отдельно укажем стоимость монтажа и выезда.</li>
+          <li>После монтажа расскажем, чем можно протирать плёнку.</li>
         </ul>
       </section>
       <section class="card" id="estimate" aria-labelledby="estimate-title">
-        <h2 id="estimate-title">Расчёт оклейки одного стола</h2>
-        <p class="subtle" id="estimate-intro">Пришлите размеры и укажите, что чаще всего оставляет следы. Для оценки подготовьте фото сверху и с края.</p>
-        <form id="request-form" data-topic="C — защита одного стола дома" aria-describedby="estimate-intro" hidden>
+        <h2 id="estimate-title">Заявка на расчёт</h2>
+        <p class="subtle" id="estimate-intro">Заполните поля. Фото можно приложить в WhatsApp перед отправкой.</p>
+        <noscript><p>Чтобы запросить расчёт, воспользуйтесь контактами ниже.</p></noscript>
+        <form id="request-form" data-topic="C — защита семейного стола" aria-describedby="estimate-intro" hidden>
           <div class="fields">
-            <label class="field">Город
-              <input name="Город" type="text" autocomplete="address-level2" maxlength="80" required>
-            </label>
-            
-            <label class="field">Размеры стола, см
-              
-              <input name="Размеры стола, см" type="text" maxlength="120" placeholder="Например, 120 × 80" required>
-              
-            </label>
-            
-            <label class="field">Что защитить
-              
-              <select name="Что защитить" required>
-                <option value="">Выберите вариант</option>
-                <option>Только верх стола</option><option>Верх и кромки</option><option>Стол и ещё одна поверхность</option><option>Нужна помощь с выбором</option>
-              </select>
-              
-            </label>
-            
-            <label class="field wide">От чего чаще остаются следы <span class="subtle">(необязательно)</span>
-              
-              <textarea name="От чего чаще остаются следы" rows="2" maxlength="380" placeholder="Например, напитки или фломастеры"></textarea>
-              
-            </label>
-            
+            <div class="field">
+              <label for="field-1">Город</label>
+              <input id="field-1" name="Город" type="text" maxlength="80" autocomplete="address-level2" required>
+            </div>
+            <div class="field">
+              <label for="field-2">Размеры стола, см</label>
+              <input id="field-2" name="Размеры стола, см" type="text" maxlength="120" placeholder="Например, 120 × 80" required>
+            </div>
+            <div class="field">
+              <label for="field-3">Материал стола</label>
+              <select id="field-3" name="Материал стола" required>
+                  <option value="">Выберите вариант</option>
+                  <option>Дерево или шпон</option>
+                  <option>Камень или композит</option>
+                  <option>Стекло</option>
+                  <option>Пластик или ламинат</option>
+                  <option>Другой материал</option>
+                  <option>Не знаю</option>
+                </select>
+            </div>
+            <div class="field">
+              <label for="field-4">Какие участки защитить</label>
+              <select id="field-4" name="Какие участки защитить" required>
+                  <option value="">Выберите вариант</option>
+                  <option>Верхняя поверхность</option>
+                  <option>Верхняя поверхность и кромки</option>
+                  <option>Стол и ещё одна поверхность</option>
+                  <option>Нужна помощь с выбором</option>
+                </select>
+            </div>
           </div>
+          <details class="extra-fields">
+            <summary>Дополнительные сведения</summary>
+            <div class="fields">
+            <div class="field wide">
+              <label for="optional-1">Что оставляет следы</label>
+              <textarea id="optional-1" name="Что оставляет следы" rows="2" maxlength="380" placeholder="Например, напитки или фломастеры"></textarea>
+            </div>
+            </div>
+          </details>
           <button class="button" type="submit">Подготовить заявку</button>
-          <p class="subtle">Проверьте текст перед переходом в WhatsApp. Фото можно прикрепить в чате перед отправкой.</p>
         </form>
         <section class="prepared" id="prepared" aria-labelledby="prepared-title" hidden>
-          <h3 id="prepared-title" tabindex="-1">Заявка готова</h3>
-          <label class="field">Текст заявки
-            <textarea id="request-text" rows="6" readonly></textarea>
-          </label>
+          <h3 id="prepared-title" tabindex="-1">Проверьте текст заявки</h3>
+          <label class="field" for="request-text">Текст заявки</label>
+          <textarea id="request-text" rows="6" readonly></textarea>
           <div class="actions">
-            <a class="button" id="send-request">Открыть WhatsApp</a>
+            <a class="button" id="send-request">Открыть в WhatsApp</a>
             <button class="button secondary" type="button" id="copy-request">Скопировать текст</button>
           </div>
+          <p class="subtle">В чате вы сможете приложить фото и отправить заявку.</p>
           <p class="subtle" id="copy-status" role="status"></p>
         </section>
-        <p class="subtle">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666-98-87</a></p>
+        <p class="subtle contacts">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666‑98‑87</a></p>
       </section>
     </div>
-    <section aria-labelledby="steps-title">
-      <h2 id="steps-title">Как проходит расчёт</h2>
+    <section class="process" aria-labelledby="steps-title">
+      <h2 id="steps-title">Порядок работы</h2>
       <ol class="steps">
-        <li><h3>Смотрим стол по фото</h3><p>Уточняем размеры и состояние поверхности, проверяем кромки.</p></li><li><h3>Сравниваем состав работ</h3><p>Рассчитываем верх стола и дополнительный вариант для совместимых поверхностей.</p></li><li><h3>Объясняем уход</h3><p>После монтажа рассказываем, чем протирать плёнку и какие нагрузки для неё допустимы.</p></li>
+        <li><h3>Уточняем состояние стола</h3><p>Пришлите фото сверху и сбоку. Укажите размеры и материал, если он известен.</p></li>
+        <li><h3>Предлагаем варианты</h3><p>Рассчитываем верхнюю поверхность и, если возможно, дополнительные участки.</p></li>
+        <li><h3>Объясняем правила ухода</h3><p>После монтажа рассказываем, какие средства и нагрузки допустимы для выбранной плёнки.</p></li>
       </ol>
     </section>
   </main>
