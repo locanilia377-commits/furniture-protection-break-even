@@ -1,35 +1,106 @@
----
-layout: estimate
-title: Защитите новую столешницу до первых царапин
-audience: Новая кухня или ценный стол
-topic: A — защита новой столешницы или стола
-problem: На новой столешнице быстро появляются следы от посуды и уборки. При этом важно сохранить фактуру, блеск и вид кромок.
-value: Подберём прозрачную плёнку под поверхность и согласуем финиш. При сдаче осмотрим покрытие и кромки вместе с вами.
-offer: Оценим работу по фото и размерам. До монтажа согласуем внешний вид, границы покрытия и условия работ.
-cta: Рассчитать защиту новой поверхности
-form_title: Расчёт защиты столешницы или стола
-form_intro: Укажите размеры и материал. Для оценки подготовьте общий вид изделия и фото торца.
-benefits:
-  - Финиш и границы покрытия согласуем до монтажа.
-  - В смете укажем покрытие, подготовку, монтаж и условия выезда.
-  - При приёмке осмотрим поверхность при боковом свете.
-fields:
-  - label: Изделие
-    required: true
-    options: [Столешница, Обеденный стол, Другое]
-  - label: Размеры, см
-    placeholder: Например, 120 × 80
-    required: true
-  - label: Материал
-    required: true
-    options: [Натуральный камень, Кварц или композит, Дерево или шпон, Стекло, Другой материал, Не знаю]
-  - label: Предпочтительный финиш
-    options: [Матовый, Глянцевый, Нужна помощь с выбором]
-steps:
-  - title: Уточняем поверхность
-    text: Смотрим материал, размеры, кромки и вырезы по фото.
-  - title: Согласуем покрытие и смету
-    text: Определяем финиш и границы оклейки. Уточняем подготовку, выезд и гарантийные условия.
-  - title: Принимаем работу вместе
-    text: После монтажа проверяем поверхность и кромки, объясняем правила ухода.
----
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Оценим работу по фото и размерам. До монтажа согласуем внешний вид, границы покрытия и условия работ.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Защитите новую столешницу до первых царапин — Мебель Бронь</title>
+  <link rel="stylesheet" href="segment.css">
+</head>
+<body>
+  <header class="wrap bar">
+    <a class="brand" href="index.html">Мебель Бронь</a>
+    <nav class="links" aria-label="Навигация по сайту">
+      <a href="index.html#segment-pages">Все предложения</a>
+      <a href="https://locanilia377-commits.github.io/furniture-protection-break-even/reviews.html">Исследование</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <div class="layout">
+      <section aria-labelledby="title">
+        <p class="kicker">Новая кухня или ценный стол</p>
+        <h1 id="title">Защитите новую столешницу до первых царапин</h1>
+        <p class="lead">На новой столешнице быстро появляются следы от посуды и уборки. При этом важно сохранить фактуру, блеск и вид кромок.</p>
+        <p>Подберём прозрачную плёнку под поверхность и согласуем финиш. При сдаче осмотрим покрытие и кромки вместе с вами.</p>
+        <p class="offer">Оценим работу по фото и размерам. До монтажа согласуем внешний вид, границы покрытия и условия работ.</p>
+        <a class="button cta" href="#estimate">Рассчитать защиту новой поверхности</a>
+        <ul class="benefits">
+          <li>Финиш и границы покрытия согласуем до монтажа.</li><li>В смете укажем покрытие, подготовку, монтаж и условия выезда.</li><li>При приёмке осмотрим поверхность при боковом свете.</li>
+        </ul>
+      </section>
+      <section class="card" id="estimate" aria-labelledby="estimate-title">
+        <h2 id="estimate-title">Расчёт защиты столешницы или стола</h2>
+        <p class="subtle" id="estimate-intro">Укажите размеры и материал. Для оценки подготовьте общий вид изделия и фото торца.</p>
+        <form id="request-form" data-topic="A — защита новой столешницы или стола" aria-describedby="estimate-intro" hidden>
+          <div class="fields">
+            <label class="field">Город
+              <input name="Город" type="text" autocomplete="address-level2" maxlength="80" required>
+            </label>
+            
+            <label class="field">Изделие
+              
+              <select name="Изделие" required>
+                <option value="">Выберите вариант</option>
+                <option>Столешница</option><option>Обеденный стол</option><option>Другое</option>
+              </select>
+              
+            </label>
+            
+            <label class="field">Размеры, см
+              
+              <input name="Размеры, см" type="text" maxlength="120" placeholder="Например, 120 × 80" required>
+              
+            </label>
+            
+            <label class="field">Материал
+              
+              <select name="Материал" required>
+                <option value="">Выберите вариант</option>
+                <option>Натуральный камень</option><option>Кварц или композит</option><option>Дерево или шпон</option><option>Стекло</option><option>Другой материал</option><option>Не знаю</option>
+              </select>
+              
+            </label>
+            
+            <label class="field">Предпочтительный финиш <span class="subtle">(необязательно)</span>
+              
+              <select name="Предпочтительный финиш">
+                <option value="">Выберите вариант</option>
+                <option>Матовый</option><option>Глянцевый</option><option>Нужна помощь с выбором</option>
+              </select>
+              
+            </label>
+            
+          </div>
+          <button class="button" type="submit">Подготовить заявку</button>
+          <p class="subtle">Проверьте текст перед переходом в WhatsApp. Фото можно прикрепить в чате перед отправкой.</p>
+        </form>
+        <section class="prepared" id="prepared" aria-labelledby="prepared-title" hidden>
+          <h3 id="prepared-title" tabindex="-1">Заявка готова</h3>
+          <label class="field">Текст заявки
+            <textarea id="request-text" rows="6" readonly></textarea>
+          </label>
+          <div class="actions">
+            <a class="button" id="send-request">Открыть WhatsApp</a>
+            <button class="button secondary" type="button" id="copy-request">Скопировать текст</button>
+          </div>
+          <p class="subtle" id="copy-status" role="status"></p>
+        </section>
+        <p class="subtle">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666-98-87</a></p>
+      </section>
+    </div>
+    <section aria-labelledby="steps-title">
+      <h2 id="steps-title">Как проходит расчёт</h2>
+      <ol class="steps">
+        <li><h3>Уточняем поверхность</h3><p>Смотрим материал, размеры, кромки и вырезы по фото.</p></li><li><h3>Согласуем покрытие и смету</h3><p>Определяем финиш и границы оклейки. Уточняем подготовку, выезд и гарантийные условия.</p></li><li><h3>Принимаем работу вместе</h3><p>После монтажа проверяем поверхность и кромки, объясняем правила ухода.</p></li>
+      </ol>
+    </section>
+  </main>
+  <footer class="wrap links">
+    <a href="index.html#segment-pages">Другие предложения</a>
+    <a href="index.html#price-comparison">Сравнение цен</a>
+    <a href="https://2gis.ru/makhachkala/firm/70000001105299044">Контакты в 2ГИС</a>
+  </footer>
+  <script src="segment.js" defer></script>
+</body>
+</html>
