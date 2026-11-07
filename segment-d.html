@@ -1,37 +1,100 @@
----
-layout: estimate
-title: Узнайте, можно ли оклеить повреждённую столешницу
-audience: Царапины, сколы или пятна
-topic: D — оценка повреждённой поверхности
-problem: Если поверхность уже поцарапана или на ней есть сколы, важно заранее понять, что останется видно и сколько будет стоить подготовка.
-value: Проверим основание. Если потребуется подготовка, вынесем её в отдельную строку сметы и согласуем ожидаемый результат.
-offer: Начнём с оценки по фото. Если потребуется осмотр, согласуем стоимость выезда и диагностики до назначения мастера.
-cta: Запросить оценку повреждения
-form_title: Оценка поверхности по фото
-form_intro: Опишите дефект. Для оценки подготовьте общий вид, фото торца и крупный план повреждения при боковом свете.
-benefits:
-  - Уточним совместимость основания с плёнкой.
-  - Согласуем условия диагностики до выезда.
-  - Обсудим результат, который можно получить после подготовки.
-fields:
-  - label: Материал поверхности
-    required: true
-    options: [Камень или композит, Дерево или шпон, Стекло, Пластик или ламинат, Другой материал, Не знаю]
-  - label: Размеры, см
-    placeholder: Например, 120 × 80
-  - label: Что повреждено
-    required: true
-    placeholder: Где дефект и как он выглядит
-    multiline: true
-    wide: true
-  - label: Что уже пробовали сделать
-    placeholder: Например, полировали или очищали пятно
-    wide: true
-steps:
-  - title: Проверяем по фото
-    text: Смотрим материал, торец и крупный план повреждения.
-  - title: Уточняем необходимость осмотра
-    text: Если фотографий недостаточно, заранее согласуем условия выезда и диагностики.
-  - title: Согласуем вариант работ
-    text: Если оклейка возможна, отдельно оцениваем подготовку и согласуем ожидаемый результат.
----
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Начнём с оценки по фото. Если потребуется осмотр, согласуем стоимость выезда и диагностики до назначения мастера.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Узнайте, можно ли оклеить повреждённую столешницу — Мебель Бронь</title>
+  <link rel="stylesheet" href="segment.css">
+</head>
+<body>
+  <header class="wrap bar">
+    <a class="brand" href="index.html">Мебель Бронь</a>
+    <nav class="links" aria-label="Навигация по сайту">
+      <a href="index.html#segment-pages">Все предложения</a>
+      <a href="https://locanilia377-commits.github.io/furniture-protection-break-even/reviews.html">Исследование</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <div class="layout">
+      <section aria-labelledby="title">
+        <p class="kicker">Царапины, сколы или пятна</p>
+        <h1 id="title">Узнайте, можно ли оклеить повреждённую столешницу</h1>
+        <p class="lead">Если поверхность уже поцарапана или на ней есть сколы, важно заранее понять, что останется видно и сколько будет стоить подготовка.</p>
+        <p>Проверим основание. Если потребуется подготовка, вынесем её в отдельную строку сметы и согласуем ожидаемый результат.</p>
+        <p class="offer">Начнём с оценки по фото. Если потребуется осмотр, согласуем стоимость выезда и диагностики до назначения мастера.</p>
+        <a class="button cta" href="#estimate">Запросить оценку повреждения</a>
+        <ul class="benefits">
+          <li>Уточним совместимость основания с плёнкой.</li><li>Согласуем условия диагностики до выезда.</li><li>Обсудим результат, который можно получить после подготовки.</li>
+        </ul>
+      </section>
+      <section class="card" id="estimate" aria-labelledby="estimate-title">
+        <h2 id="estimate-title">Оценка поверхности по фото</h2>
+        <p class="subtle" id="estimate-intro">Опишите дефект. Для оценки подготовьте общий вид, фото торца и крупный план повреждения при боковом свете.</p>
+        <form id="request-form" data-topic="D — оценка повреждённой поверхности" aria-describedby="estimate-intro" hidden>
+          <div class="fields">
+            <label class="field">Город
+              <input name="Город" type="text" autocomplete="address-level2" maxlength="80" required>
+            </label>
+            
+            <label class="field">Материал поверхности
+              
+              <select name="Материал поверхности" required>
+                <option value="">Выберите вариант</option>
+                <option>Камень или композит</option><option>Дерево или шпон</option><option>Стекло</option><option>Пластик или ламинат</option><option>Другой материал</option><option>Не знаю</option>
+              </select>
+              
+            </label>
+            
+            <label class="field">Размеры, см <span class="subtle">(необязательно)</span>
+              
+              <input name="Размеры, см" type="text" maxlength="120" placeholder="Например, 120 × 80">
+              
+            </label>
+            
+            <label class="field wide">Что повреждено
+              
+              <textarea name="Что повреждено" rows="2" maxlength="380" placeholder="Где дефект и как он выглядит" required></textarea>
+              
+            </label>
+            
+            <label class="field wide">Что уже пробовали сделать <span class="subtle">(необязательно)</span>
+              
+              <input name="Что уже пробовали сделать" type="text" maxlength="120" placeholder="Например, полировали или очищали пятно">
+              
+            </label>
+            
+          </div>
+          <button class="button" type="submit">Подготовить заявку</button>
+          <p class="subtle">Проверьте текст перед переходом в WhatsApp. Фото можно прикрепить в чате перед отправкой.</p>
+        </form>
+        <section class="prepared" id="prepared" aria-labelledby="prepared-title" hidden>
+          <h3 id="prepared-title" tabindex="-1">Заявка готова</h3>
+          <label class="field">Текст заявки
+            <textarea id="request-text" rows="6" readonly></textarea>
+          </label>
+          <div class="actions">
+            <a class="button" id="send-request">Открыть WhatsApp</a>
+            <button class="button secondary" type="button" id="copy-request">Скопировать текст</button>
+          </div>
+          <p class="subtle" id="copy-status" role="status"></p>
+        </section>
+        <p class="subtle">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666-98-87</a></p>
+      </section>
+    </div>
+    <section aria-labelledby="steps-title">
+      <h2 id="steps-title">Как проходит расчёт</h2>
+      <ol class="steps">
+        <li><h3>Проверяем по фото</h3><p>Смотрим материал, торец и крупный план повреждения.</p></li><li><h3>Уточняем необходимость осмотра</h3><p>Если фотографий недостаточно, заранее согласуем условия выезда и диагностики.</p></li><li><h3>Согласуем вариант работ</h3><p>Если оклейка возможна, отдельно оцениваем подготовку и согласуем ожидаемый результат.</p></li>
+      </ol>
+    </section>
+  </main>
+  <footer class="wrap links">
+    <a href="index.html#segment-pages">Другие предложения</a>
+    <a href="index.html#price-comparison">Сравнение цен</a>
+    <a href="https://2gis.ru/makhachkala/firm/70000001105299044">Контакты в 2ГИС</a>
+  </footer>
+  <script src="segment.js" defer></script>
+</body>
+</html>
