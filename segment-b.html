@@ -1,38 +1,103 @@
----
-layout: estimate
-title: Проверьте защиту на одном столе в заведении
-audience: Кафе, кофейни и столовые
-topic: B — пилот и расчёт партии для заведения
-problem: Поток гостей и частая уборка ускоряют износ столов. При этом закрывать зал ради работ неудобно.
-value: Проведём пилот на столе с типичной нагрузкой. По его результату вы сможете решить, стоит ли оклеивать остальной зал.
-offer: Подготовим две сметы. Одну на пилот, вторую на согласованную партию столов.
-cta: Запросить расчёт пилота
-form_title: Заявка на пилот и расчёт партии
-form_intro: Укажите число столов, типовые размеры и средства уборки. Фото столов можно добавить в чат.
-benefits:
-  - Заранее согласуем критерии пилота и средства уборки.
-  - Подберём окно монтажа с учётом работы зала.
-  - После пилота рассчитаем партию и согласуем график по зонам.
-fields:
-  - label: Название заведения
-    required: true
-  - label: Количество столов
-    required: true
-    number: true
-  - label: Типовые размеры, см
-    placeholder: Например, 70 × 70 и 120 × 80
-    required: true
-  - label: Удобное окно для монтажа
-    placeholder: Например, до открытия
-  - label: Средства уборки
-    placeholder: Названия средств или описание вашего регламента
-    multiline: true
-    wide: true
-steps:
-  - title: Выбираем стол для пилота
-    text: Фиксируем исходное состояние, средства уборки и подходящее окно работ.
-  - title: Оцениваем пилот
-    text: В согласованный срок проверяем внешний вид и удобство ежедневного ухода.
-  - title: Считаем партию
-    text: Если результат подходит, уточняем число столов, смету и график монтажа по зонам.
----
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Подготовим две сметы. Одну на пилот, вторую на согласованную партию столов.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Проверьте защиту на одном столе в заведении — Мебель Бронь</title>
+  <link rel="stylesheet" href="segment.css">
+</head>
+<body>
+  <header class="wrap bar">
+    <a class="brand" href="index.html">Мебель Бронь</a>
+    <nav class="links" aria-label="Навигация по сайту">
+      <a href="index.html#segment-pages">Все предложения</a>
+      <a href="https://locanilia377-commits.github.io/furniture-protection-break-even/reviews.html">Исследование</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <div class="layout">
+      <section aria-labelledby="title">
+        <p class="kicker">Кафе, кофейни и столовые</p>
+        <h1 id="title">Проверьте защиту на одном столе в заведении</h1>
+        <p class="lead">Поток гостей и частая уборка ускоряют износ столов. При этом закрывать зал ради работ неудобно.</p>
+        <p>Проведём пилот на столе с типичной нагрузкой. По его результату вы сможете решить, стоит ли оклеивать остальной зал.</p>
+        <p class="offer">Подготовим две сметы. Одну на пилот, вторую на согласованную партию столов.</p>
+        <a class="button cta" href="#estimate">Запросить расчёт пилота</a>
+        <ul class="benefits">
+          <li>Заранее согласуем критерии пилота и средства уборки.</li><li>Подберём окно монтажа с учётом работы зала.</li><li>После пилота рассчитаем партию и согласуем график по зонам.</li>
+        </ul>
+      </section>
+      <section class="card" id="estimate" aria-labelledby="estimate-title">
+        <h2 id="estimate-title">Заявка на пилот и расчёт партии</h2>
+        <p class="subtle" id="estimate-intro">Укажите число столов, типовые размеры и средства уборки. Фото столов можно добавить в чат.</p>
+        <form id="request-form" data-topic="B — пилот и расчёт партии для заведения" aria-describedby="estimate-intro" hidden>
+          <div class="fields">
+            <label class="field">Город
+              <input name="Город" type="text" autocomplete="address-level2" maxlength="80" required>
+            </label>
+            
+            <label class="field">Название заведения
+              
+              <input name="Название заведения" type="text" maxlength="120" placeholder="" required>
+              
+            </label>
+            
+            <label class="field">Количество столов
+              
+              <input name="Количество столов" type="number" min="1" max="10000" step="1" required>
+              
+            </label>
+            
+            <label class="field">Типовые размеры, см
+              
+              <input name="Типовые размеры, см" type="text" maxlength="120" placeholder="Например, 70 × 70 и 120 × 80" required>
+              
+            </label>
+            
+            <label class="field">Удобное окно для монтажа <span class="subtle">(необязательно)</span>
+              
+              <input name="Удобное окно для монтажа" type="text" maxlength="120" placeholder="Например, до открытия">
+              
+            </label>
+            
+            <label class="field wide">Средства уборки <span class="subtle">(необязательно)</span>
+              
+              <textarea name="Средства уборки" rows="2" maxlength="380" placeholder="Названия средств или описание вашего регламента"></textarea>
+              
+            </label>
+            
+          </div>
+          <button class="button" type="submit">Подготовить заявку</button>
+          <p class="subtle">Проверьте текст перед переходом в WhatsApp. Фото можно прикрепить в чате перед отправкой.</p>
+        </form>
+        <section class="prepared" id="prepared" aria-labelledby="prepared-title" hidden>
+          <h3 id="prepared-title" tabindex="-1">Заявка готова</h3>
+          <label class="field">Текст заявки
+            <textarea id="request-text" rows="6" readonly></textarea>
+          </label>
+          <div class="actions">
+            <a class="button" id="send-request">Открыть WhatsApp</a>
+            <button class="button secondary" type="button" id="copy-request">Скопировать текст</button>
+          </div>
+          <p class="subtle" id="copy-status" role="status"></p>
+        </section>
+        <p class="subtle">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666-98-87</a></p>
+      </section>
+    </div>
+    <section aria-labelledby="steps-title">
+      <h2 id="steps-title">Как проходит расчёт</h2>
+      <ol class="steps">
+        <li><h3>Выбираем стол для пилота</h3><p>Фиксируем исходное состояние, средства уборки и подходящее окно работ.</p></li><li><h3>Оцениваем пилот</h3><p>В согласованный срок проверяем внешний вид и удобство ежедневного ухода.</p></li><li><h3>Считаем партию</h3><p>Если результат подходит, уточняем число столов, смету и график монтажа по зонам.</p></li>
+      </ol>
+    </section>
+  </main>
+  <footer class="wrap links">
+    <a href="index.html#segment-pages">Другие предложения</a>
+    <a href="index.html#price-comparison">Сравнение цен</a>
+    <a href="https://2gis.ru/makhachkala/firm/70000001105299044">Контакты в 2ГИС</a>
+  </footer>
+  <script src="segment.js" defer></script>
+</body>
+</html>
