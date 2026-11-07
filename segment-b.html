@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Подготовим две сметы. Одну на пилот, вторую на согласованную партию столов.">
+  <meta name="description" content="Подготовим смету на пробную оклейку. Если результат вас устроит, рассчитаем работы для остальных столов.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
-  <title>Проверьте защиту на одном столе в заведении — Мебель Бронь</title>
-  <link rel="stylesheet" href="segment.css">
+  <title>Защита столов в заведении — Мебель Бронь</title>
+  <link rel="stylesheet" href="segment.css?v=2">
 </head>
 <body>
   <header class="wrap bar">
@@ -17,79 +17,81 @@
     </nav>
   </header>
   <main class="wrap">
+    <header class="hero">
+      <p class="kicker">Кафе, кофейни и столовые</p>
+      <h1>Защита столов в заведении</h1>
+      <p class="lead">Поток гостей и частая уборка ускоряют износ столешниц. Работы важно запланировать с учётом графика зала.</p>
+      <a class="button cta" href="#estimate">Перейти к заявке</a>
+    </header>
     <div class="layout">
-      <section aria-labelledby="title">
-        <p class="kicker">Кафе, кофейни и столовые</p>
-        <h1 id="title">Проверьте защиту на одном столе в заведении</h1>
-        <p class="lead">Поток гостей и частая уборка ускоряют износ столов. При этом закрывать зал ради работ неудобно.</p>
-        <p>Проведём пилот на столе с типичной нагрузкой. По его результату вы сможете решить, стоит ли оклеивать остальной зал.</p>
-        <p class="offer">Подготовим две сметы. Одну на пилот, вторую на согласованную партию столов.</p>
-        <a class="button cta" href="#estimate">Запросить расчёт пилота</a>
+      <section class="card" aria-labelledby="offer-title">
+        <h2 id="offer-title">Что предлагаем</h2>
+        <p>Начните с пробной оклейки одного стола. Оцените внешний вид и удобство уборки до заказа на весь зал.</p>
+        <p class="offer">Подготовим смету на пробную оклейку. Если результат вас устроит, рассчитаем работы для остальных столов.</p>
         <ul class="benefits">
-          <li>Заранее согласуем критерии пилота и средства уборки.</li><li>Подберём окно монтажа с учётом работы зала.</li><li>После пилота рассчитаем партию и согласуем график по зонам.</li>
+          <li>Выберем стол, который используется так же, как остальные.</li>
+          <li>Проверим, подходят ли ваши средства уборки для выбранной плёнки.</li>
+          <li>Согласуем время монтажа и порядок работ в зале.</li>
         </ul>
       </section>
       <section class="card" id="estimate" aria-labelledby="estimate-title">
-        <h2 id="estimate-title">Заявка на пилот и расчёт партии</h2>
-        <p class="subtle" id="estimate-intro">Укажите число столов, типовые размеры и средства уборки. Фото столов можно добавить в чат.</p>
-        <form id="request-form" data-topic="B — пилот и расчёт партии для заведения" aria-describedby="estimate-intro" hidden>
+        <h2 id="estimate-title">Заявка на расчёт</h2>
+        <p class="subtle" id="estimate-intro">Заполните поля. Фото можно приложить в WhatsApp перед отправкой.</p>
+        <noscript><p>Чтобы запросить расчёт, воспользуйтесь контактами ниже.</p></noscript>
+        <form id="request-form" data-topic="B — пробная оклейка и расчёт работ для заведения" aria-describedby="estimate-intro" hidden>
           <div class="fields">
-            <label class="field">Город
-              <input name="Город" type="text" autocomplete="address-level2" maxlength="80" required>
-            </label>
-            
-            <label class="field">Название заведения
-              
-              <input name="Название заведения" type="text" maxlength="120" placeholder="" required>
-              
-            </label>
-            
-            <label class="field">Количество столов
-              
-              <input name="Количество столов" type="number" min="1" max="10000" step="1" required>
-              
-            </label>
-            
-            <label class="field">Типовые размеры, см
-              
-              <input name="Типовые размеры, см" type="text" maxlength="120" placeholder="Например, 70 × 70 и 120 × 80" required>
-              
-            </label>
-            
-            <label class="field">Удобное окно для монтажа <span class="subtle">(необязательно)</span>
-              
-              <input name="Удобное окно для монтажа" type="text" maxlength="120" placeholder="Например, до открытия">
-              
-            </label>
-            
-            <label class="field wide">Средства уборки <span class="subtle">(необязательно)</span>
-              
-              <textarea name="Средства уборки" rows="2" maxlength="380" placeholder="Названия средств или описание вашего регламента"></textarea>
-              
-            </label>
-            
+            <div class="field">
+              <label for="field-1">Город</label>
+              <input id="field-1" name="Город" type="text" maxlength="80" autocomplete="address-level2" required>
+            </div>
+            <div class="field">
+              <label for="field-2">Название заведения</label>
+              <input id="field-2" name="Название заведения" type="text" maxlength="120" required>
+            </div>
+            <div class="field">
+              <label for="field-3">Количество столов</label>
+              <input id="field-3" name="Количество столов" type="number" min="1" max="10000" step="1" required>
+            </div>
+            <div class="field">
+              <label for="field-4">Размеры столов, см</label>
+              <input id="field-4" name="Размеры столов, см" type="text" maxlength="120" placeholder="Например, 70 × 70 и 120 × 80" required>
+            </div>
           </div>
+          <details class="extra-fields">
+            <summary>Дополнительные сведения</summary>
+            <div class="fields">
+            <div class="field">
+              <label for="optional-1">Удобное время для монтажа</label>
+              <input id="optional-1" name="Удобное время для монтажа" type="text" maxlength="120" placeholder="Например, до открытия">
+            </div>
+            <div class="field wide">
+              <label for="optional-2">Средства для уборки</label>
+              <textarea id="optional-2" name="Средства для уборки" rows="2" maxlength="380" placeholder="Укажите названия средств, если они известны."></textarea>
+            </div>
+            </div>
+          </details>
           <button class="button" type="submit">Подготовить заявку</button>
-          <p class="subtle">Проверьте текст перед переходом в WhatsApp. Фото можно прикрепить в чате перед отправкой.</p>
         </form>
         <section class="prepared" id="prepared" aria-labelledby="prepared-title" hidden>
-          <h3 id="prepared-title" tabindex="-1">Заявка готова</h3>
-          <label class="field">Текст заявки
-            <textarea id="request-text" rows="6" readonly></textarea>
-          </label>
+          <h3 id="prepared-title" tabindex="-1">Проверьте текст заявки</h3>
+          <label class="field" for="request-text">Текст заявки</label>
+          <textarea id="request-text" rows="6" readonly></textarea>
           <div class="actions">
-            <a class="button" id="send-request">Открыть WhatsApp</a>
+            <a class="button" id="send-request">Открыть в WhatsApp</a>
             <button class="button secondary" type="button" id="copy-request">Скопировать текст</button>
           </div>
+          <p class="subtle">В чате вы сможете приложить фото и отправить заявку.</p>
           <p class="subtle" id="copy-status" role="status"></p>
         </section>
-        <p class="subtle">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666-98-87</a></p>
+        <p class="subtle contacts">Связаться напрямую · <a href="https://wa.me/79896669887">WhatsApp</a> · <a href="https://t.me/+79896669887">Telegram</a> · <a href="tel:+79896669887">+7 989 666‑98‑87</a></p>
       </section>
     </div>
-    <section aria-labelledby="steps-title">
-      <h2 id="steps-title">Как проходит расчёт</h2>
+    <section class="process" aria-labelledby="steps-title">
+      <h2 id="steps-title">Порядок работы</h2>
       <ol class="steps">
-        <li><h3>Выбираем стол для пилота</h3><p>Фиксируем исходное состояние, средства уборки и подходящее окно работ.</p></li><li><h3>Оцениваем пилот</h3><p>В согласованный срок проверяем внешний вид и удобство ежедневного ухода.</p></li><li><h3>Считаем партию</h3><p>Если результат подходит, уточняем число столов, смету и график монтажа по зонам.</p></li>
+        <li><h3>Выбираем стол для пробы</h3><p>По фотографиям уточняем материал и состояние кромок. Средства уборки согласуем с вами.</p></li>
+        <li><h3>Оцениваем результат</h3><p>После пробной оклейки смотрим, как выглядит стол и насколько удобно за ним ухаживать.</p></li>
+        <li><h3>Рассчитываем остальные столы</h3><p>Если результат подходит, согласуем объём, смету и график работ.</p></li>
       </ol>
     </section>
   </main>
