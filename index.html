@@ -3,33 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-jfEzbKcNyokoBWQMw4rlymPK8PTw3CPdr5xe+V/4+hE='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-jfEzbKcNyokoBWQMw4rlymPK8PTw3CPdr5xe+V/4+hE='; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'">
   <title>Защита мебели в России — исследование рынка B2C и B2B</title>
+  <link rel="stylesheet" href="dashboard.css">
 <style>
-    :root {
-      color-scheme: light dark;
-      font-family: system-ui, sans-serif;
-      --page: #f3f6fa;
-      --surface: #fff;
-      --ink: #182537;
-      --muted: #526477;
-      --line: #d6e1ec;
-      --track: #e6eef6;
-      --accent: #285bab;
-      --selected: #e6efff;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --page: #101721;
-        --surface: #172331;
-        --ink: #eef4fc;
-        --muted: #b1c1d4;
-        --line: #354960;
-        --track: #26384c;
-        --accent: #8bb5ff;
-        --selected: #213d62;
-      }
-    }
     *, *::before, *::after { box-sizing: border-box; }
     body { margin: 0; background: var(--page); color: var(--ink); line-height: 1.5; }
     .note { color: var(--muted); }
@@ -77,7 +54,7 @@
       inset: 0 0 auto;
       z-index: 3;
       width: 100%;
-      height: 4px;
+      height: 5px;
       border: 0;
       appearance: none;
       background: var(--track);
@@ -122,6 +99,14 @@
     #price-results [data-price-row] :is(td:nth-child(2), td:nth-child(3)) { white-space: pre-line; }
     #price-results[data-product="table"] tr > :nth-child(3),
     #price-results[data-product="countertop"] tr > :nth-child(2) { display: none; }
+    .segment-choices { margin-block: 2rem; }
+    .segment-choices h2 { margin: 0 0 .75rem; letter-spacing: -.025em; }
+    .segment-key { display: inline-flex; justify-content: center; align-items: center; width: 1.7rem; height: 1.7rem; border-radius: .35rem; color: var(--accent); background: var(--selected); font-weight: 750; }
+    .finding-grid { margin-block: .85rem; }
+    .pilot-steps { padding: 0; list-style: none; }
+    .report-body .pilot-steps li { margin: 0; }
+    .report-body .pilot-steps { max-width: none; padding-inline: 0; }
+    .report-body .calculator-card { max-width: none; }
     .report-footer { margin-top: 2rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
     @media (min-width: 58rem) {
       .report-layout { grid-template-columns: 13.5rem minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: start; }
@@ -156,11 +141,11 @@
   #research-dashboard .rd-scale { display: flex; justify-content: space-between; margin-top: .2rem; font-size: .72rem; }
   #research-dashboard .rd-sub { font-size: .85rem; font-weight: 650; margin-top: .75rem; }
   #research-dashboard .rd-tight { margin-top: .3rem; gap: .35rem; }
-  #research-dashboard .rd-stack { display: flex; height: .85rem; gap: 2px; margin-top: 1.15rem; overflow: hidden; border-radius: 1rem; }
-  #research-dashboard .rd-stack span { flex-basis: 0; }
-  #research-dashboard .rd-ru { flex-grow: 12; background: var(--accent); }
-  #research-dashboard .rd-cis { flex-grow: 8; background: repeating-linear-gradient(135deg, var(--accent) 0 2px, var(--track) 2px 4px); }
-  #research-dashboard .rd-other { flex-grow: 90; background: var(--track); }
+  #research-dashboard .registry-viz { display: grid; grid-template-columns: minmax(5rem, 8.8rem) minmax(0, 1fr); align-items: center; gap: clamp(.45rem, 2vw, 1.2rem); margin-top: .65rem; }
+  #research-dashboard .registry-viz .rd-legend { margin-top: 0; display: grid; gap: .35rem; }
+  #research-dashboard .rd-ru { background: var(--chart-blue); }
+  #research-dashboard .rd-cis { background: var(--chart-teal); }
+  #research-dashboard .rd-other { background: var(--chart-violet); }
   #research-dashboard .rd-legend li { display: grid; grid-template-columns: .7rem minmax(0, 1fr) auto; gap: .45rem; align-items: center; font-size: .86rem; }
   #research-dashboard .rd-legend i { width: .7rem; height: .7rem; border-radius: .14rem; }
   #research-dashboard .rd-wide { grid-column: 1 / -1; }
@@ -181,28 +166,33 @@
   <progress class="reading-progress" id="reading-progress" value="0" max="100" aria-label="Прогресс чтения"></progress>
   <a class="skip-link" href="#report-content">Перейти к исследованию</a>
   <main class="page">
-    <header class="report-header">
-      <p class="eyebrow">Исследование рынка</p>
-      <h1 id="top">Защита мебели в России</h1>
-      <p class="report-subtitle">Рынок B2C и B2B с фокусом на HoReCa • 7 ноября 2026</p>
-      <nav class="report-links" aria-label="Быстрый переход">
-        <a class="jump-button" href="#research-dashboard">Дашборд</a>
-        <a class="jump-button" href="#contents">Содержание</a>
-        <a class="jump-button" href="#price-comparison">Цены на оклейку</a>
-        <a class="jump-button" href="https://locanilia377-commits.github.io/furniture-protection-break-even/reviews.html">Отзывы и сегменты</a>
-        <a class="jump-button" href="#segment-pages">Предложения и расчёт</a>
-        <a class="jump-button" href="#calculator-section">Калькулятор окупаемости</a>
-      </nav>
+    <header>
+      <div class="dash-nav">
+        <a class="dash-brand" href="index.html">Мебель Бронь</a>
+        <nav class="dash-links" aria-label="Разделы сайта">
+          <a href="#research-dashboard" aria-current="page">Рынок</a>
+          <a href="reviews.html">Отзывы и сегменты</a>
+          <a href="#price-comparison">Сравнение цен</a>
+          <a href="#segment-pages">Предложения</a>
+        </nav>
+      </div>
+      <div class="dash-hero">
+        <p class="dash-kicker">Исследование рынка · 7 ноября 2026</p>
+        <h1 id="top">Защита мебели в России</h1>
+        <p>Сравнение предложений, отзывы клиентов и экономика оклейки для дома и HoReCa.</p>
+        <nav class="dash-actions" aria-label="Быстрый переход">
+          <a class="dash-button dash-primary" href="#research-dashboard">Смотреть дашборд</a>
+          <a class="dash-button" href="reviews.html">Посмотреть отзывы</a>
+          <a class="dash-button" href="#calculator-section">Рассчитать окупаемость</a>
+          <a class="dash-button" href="#contents">Читать исследование</a>
+        </nav>
+      </div>
     </header>
-    <section class="calculator-card" id="segment-pages" aria-labelledby="segment-pages-title">
-      <h2 id="segment-pages-title">Предложения «Мебель Бронь»</h2>
-      <nav class="report-links" aria-label="Выберите подходящее предложение">
-        <a class="jump-button" href="segment-a.html">Новая кухня или стол</a>
-        <a class="jump-button" href="segment-b.html">Кафе и столовые</a>
-        <a class="jump-button" href="segment-c.html">Семейный стол</a>
-        <a class="jump-button" href="segment-d.html">Повреждённая столешница</a>
-      </nav>
-    </section>
+    <dl class="dash-metrics" aria-label="Масштаб исследования">
+      <div class="dash-metric"><dt>Реестр аналогов</dt><dd>110</dd><small>Записи из 26 стран</small></div>
+      <div class="dash-metric"><dt>Уникальные тексты отзывов</dt><dd>370</dd><small>Из них 30 прямо об оклейке мебели. <a href="reviews.html#coverage">Состав выборки</a></small></div>
+      <div class="dash-metric"><dt>Есть ценовой ориентир</dt><dd>5 из 21</dd><small>Конкуренты в сравнении цен</small><progress class="dash-meter" value="5" max="21" aria-label="5 из 21 конкурента с ценовым ориентиром"></progress></div>
+    </dl>
     <section id="research-dashboard" aria-labelledby="rd-heading">
   <div class="rd-intro">
     <p class="rd-kicker">Дашборд исследования</p>
@@ -237,15 +227,22 @@
         <h3>География реестра аналогов</h3>
         <p class="rd-muted">110 записей из 26 стран</p>
       </figcaption>
-      <div class="rd-stack" aria-hidden="true">
-        <span class="rd-ru"></span><span class="rd-cis"></span><span class="rd-other"></span>
+      <div class="registry-viz">
+        <div class="dash-ring" aria-hidden="true">
+          <svg viewBox="0 0 112 112" fill="none" stroke-width="12">
+            <circle cx="56" cy="56" r="43" pathLength="110" stroke="var(--chart-violet)" />
+            <circle cx="56" cy="56" r="43" pathLength="110" stroke="var(--chart-blue)" stroke-dasharray="12 98" />
+            <circle cx="56" cy="56" r="43" pathLength="110" stroke="var(--chart-teal)" stroke-dasharray="8 102" stroke-dashoffset="-12" />
+          </svg>
+          <div class="dash-ring-label"><strong>110</strong><small>записей</small></div>
+        </div>
+        <ul class="rd-legend">
+          <li><i class="rd-ru" aria-hidden="true"></i><span>Россия</span><strong>12</strong></li>
+          <li><i class="rd-cis" aria-hidden="true"></i><span>СНГ вне России</span><strong>8</strong></li>
+          <li><i class="rd-other" aria-hidden="true"></i><span>Другие страны</span><strong>90</strong></li>
+        </ul>
       </div>
-      <ul class="rd-legend">
-        <li><i class="rd-ru" aria-hidden="true"></i><span>Россия</span><strong>12</strong></li>
-        <li><i class="rd-cis" aria-hidden="true"></i><span>СНГ вне России</span><strong>8</strong></li>
-        <li><i class="rd-other" aria-hidden="true"></i><span>Другие страны</span><strong>90</strong></li>
-      </ul>
-      <p class="rd-foot">Распределение записей по географии. Количество зависит от покрытия поиска и состава реестра.</p>
+      <p class="rd-foot">Распределение записей по географии поиска. Реестр включает прямые и смежные предложения.</p>
     </figure>
 
     <figure class="rd-card">
@@ -327,6 +324,16 @@
     </figure>
   </div>
 </section>
+    <section id="segment-pages" class="segment-choices" aria-labelledby="segment-pages-title">
+      <p class="dash-kicker">Четыре сценария</p>
+      <h2 id="segment-pages-title">Предложения «Мебель Бронь»</h2>
+      <nav class="dash-grid" aria-label="Выберите подходящее предложение">
+        <a class="dash-panel dash-tile" href="segment-a.html"><span class="segment-key">A</span><strong>Новая кухня или стол</strong><small>Сохранить вид новой поверхности</small></a>
+        <a class="dash-panel dash-tile" href="segment-b.html"><span class="segment-key">B</span><strong>Кафе и столовые</strong><small>Проверить оклейку на одном столе</small></a>
+        <a class="dash-panel dash-tile" href="segment-c.html"><span class="segment-key">C</span><strong>Семейный стол</strong><small>Подобрать защиту для ежедневного использования</small></a>
+        <a class="dash-panel dash-tile" href="segment-d.html"><span class="segment-key">D</span><strong>Повреждённая столешница</strong><small>Оценить, нужна ли подготовка</small></a>
+      </nav>
+    </section>
     <div class="report-layout">
       <nav class="report-toc" aria-labelledby="toc-title" id="contents">
         <h2 id="toc-title">Содержание</h2>
@@ -342,15 +349,31 @@
       </nav>
       <article class="report-body" id="report-content" aria-label="Защита мебели в России">
 <h2 id="summary">Вывод для запуска</h2>
+<div class="dash-grid finding-grid">
+  <article class="dash-panel"><p class="dash-kicker">HoReCa</p><h3>Пилот на нескольких предметах</h3><p>Проверить внешний вид, кромки и уборку. Сравнить затраты на защиту с расходами на ремонт.</p></article>
+  <article class="dash-panel"><p class="dash-kicker">B2C</p><h3>Защита при сдаче новой мебели</h3><p>Предлагать оклейку покупателям кухонь, дорогих столов и изделий из камня или шпона.</p></article>
+</div>
+<details class="dash-fold"><summary>Развернуть выводы и ограничения</summary>
+<div class="dash-fold-body">
 <p><strong>Первая гипотеза для проверки — прозрачная защита дорогих столешниц и стоек в гостевых зонах HoReCa.</strong> Рестораны, бутик-отели и гостиничные операторы с одинаковыми поверхностями могут сравнить стоимость оклейки с ремонтом, заменой и выводом мебели из эксплуатации. Платный пилот на нескольких предметах покажет совместимость с отделкой, поведение кромки, качество уборки и готовность закупщика платить за весь объект.</p>
 <p><strong>В B2C стартовая аудитория — покупатели новых кухонь, дорогих столов и изделий из камня или шпона.</strong> Защиту удобно предлагать при сдаче кухни или мебели. Для бюджетной мебели есть съёмные накладки и другие дешёвые решения, с которыми выездному монтажу сложно конкурировать по цене.</p>
 <p>На российском рынке есть открытые предложения и портфолио исполнителей. У зарубежных производителей есть специальные плёнки для камня и примеры гостиничных установок. Публичных данных, достаточных для оценки оборота ниши, доли проникновения и средней окупаемости, в просмотренных источниках нет. Национальную оценку можно строить после замеров локальной воронки, площади и фактических смет.</p>
+</div>
+</details>
 <h2 id="market-scope">1. Что входит в рынок</h2>
+<p>В фокусе прозрачная плёнка с монтажом на готовые столы, столешницы и стойки. Съёмные накладки, составы и реставрация рассматриваются отдельно.</p>
+<details class="dash-fold"><summary>Границы рынка, география и состав реестра</summary>
+<div class="dash-fold-body">
 <p>Основная категория — защита уже изготовленной мебели и интерьерных поверхностей. В фокусе прозрачные приклеиваемые плёнки с монтажом и их функциональные заменители. Отдельные направления — съёмные накладки, защитные составы, реставрация, замена столешниц и встроенная защита на стадии изготовления. Ткань, кожа и мягкая мебель образуют отдельную товарную категорию с другими составами, способами испытаний и требованиями к чистке.</p>
 <p>География — Россия. В открытых ценовых примерах представлены прежде всего Москва и Санкт-Петербург. Зарубежные продукты используются как технологические ориентиры. Публичная цена «от» — предложение конкретного продавца. Кейсы поставщиков учитываются как свидетельство заявленного применения. Оценки маркетплейсов относятся к карточкам товаров.</p>
 <p>В реестре «Бронирование мебели — аналоги РФ, СНГ и мир» из рабочей папки 110 записей по 26 странам, в том числе 12 по России, 8 по СНГ за пределами РФ и 90 по другим странам. Там вместе собраны прямые исполнители, смежные предложения, объявления и записи, требующие уточнения. Реестр используется для поиска аналогов и проверки первоисточников. Количество строк зависит от покрытия поиска.</p>
+</div>
+</details>
 <h2 id="market-evidence">2. Что уже видно на рынке</h2>
 <h3 id="demand-signals">Размер смежных рынков и признаки спроса</h3>
+<p>Статистика общепита и размещения задаёт контекст. Подходящие объекты и готовность платить предстоит оценить отдельно.</p>
+<details class="dash-fold"><summary>Источники статистики, кейсы и заменители</summary>
+<div class="dash-fold-body">
 <ul>
 <li><strong>Рестораны, кафе и бары.</strong> В выгрузке, которую публикует Росчарт по набору Росстата, 107 918 объектов на конец 2025 года против 105 076 годом ранее, рост 2,7%. Росстат публикует исходный набор в разделе туризма. Это численность объектов общепита из указанной серии, а долю объектов с подходящими поверхностями ещё предстоит измерить. Рестораны при гостиницах могут пересекаться с базой размещения. <a href="https://rosstat.gov.ru/statistics/turizm">Каталог Росстата</a>, <a href="https://roschart.ru/dataset/chisl-cafe-bar-2025-chislo-restoranov-kafe-barov-edinic1">Росчарт, выгрузка ряда</a></li>
 <li><strong>Гостиницы и размещение.</strong> Росстат сообщает о 38,3 тыс. коллективных средств размещения и 3,5 млн мест в 2025 году. В эту базу входят разные виды размещения. Для расчёта целевого рынка из неё нужно выделить коммерчески доступные объекты с подходящими поверхностями. <a href="https://rosstat.gov.ru/folder/313/document/291160">Росстат</a></li>
@@ -359,7 +382,12 @@
 <li><strong>Профессиональный монтаж.</strong> ProtectWill показывает работы на мраморе, травертине, шпоне и слэбах. В отдельной публикации подрядчик описывает оклейку столов и барной стойки в ресторане за 85 тыс. ₽ в ночные часы. Площадь и первичная смета в публикации не раскрыты. Расчёт экономии поставщика не использован в модели. <a href="https://protectwill.ru/broneplenka-dlya-mebeli">Портфолио ProtectWill</a>, <a href="https://protectwill.ru/blog/okleiyka-mebeli-v-restorane-opyt-i-kejsy">кейс ресторана</a></li>
 <li><strong>Международная практика.</strong> StoneGuard USA указывает в собственном портфолио Marriott, Pendry и Andaz. TuffSkin выпускает отдельную защитную плёнку для чувствительного камня и публикует инструкцию по уходу и коммерческие условия гарантии. <a href="https://www.stoneguardusa.com/">StoneGuard</a>, <a href="https://www.tuffskin.com/wp-content/uploads/2022/10/TuffSkin_Features_Spec_Sheet.pdf">TuffSkin, спецификация</a>, <a href="https://www.tuffskin.com/wp-content/uploads/2023/12/TuffSkin-Care-and-Maintenance-Warranty-2.pdf">TuffSkin, уход и гарантия</a></li>
 </ul>
+</div>
+</details>
 <h3 id="offers-and-prices">Предложения и цены</h3>
+<p>В сравнении есть монтаж плёнки, съёмная защита и реставрация. Условия и единицы цены зависят от услуги.</p>
+<details class="dash-fold"><summary>Открыть таблицу предложений и прайсов</summary>
+<div class="dash-fold-body">
 <div class="table-scroll" role="region" aria-label="Предложения и цены" tabindex="0">
 <table>
 <thead>
@@ -481,6 +509,8 @@
 </tbody></table>
 </div>
 <p>Чтобы сравнить монтажников, отправить один и тот же запрос с фотографиями, количеством предметов, нетто-площадью, материалом, типом финиша, кромками, вырезами и временем доступа. Запросить цену за объект и за повторную замену плёнки, идентификатор материала, срок до начала эксплуатации и письменные исключения из гарантии. Для HoReCa дополнительно отделить ночной выезд, демонтаж и работы по подготовке основания.</p>
+</div>
+</details>
 <h3 id="price-comparison">Калькулятор сравнения цен на оклейку</h3>
 <p>Сравниваем оклейку верхней поверхности одного прямоугольного изделия. «От» обозначает стартовую цену или нижний ориентир, «≈» — оценку по ставке. Кромки, вырезы, подготовку поверхности и выезд оценивают отдельно, если исполнитель не включил их в тариф.</p>
 <form id="price-calculator" class="chart calculator-card" aria-labelledby="price-comparison" hidden>
@@ -515,7 +545,7 @@
 <tr data-price-row="monumental"><td>Monumental Workx<br><small>Сан-Диего, США</small></td><td>по запросу</td><td>от 16 975 ₽</td><td>Нижний ориентир по $20/ft² за столешницу с монтажом. Минимум для малого объекта не опубликован. <a href="https://www.monumentalworkx.com/services/countertop-protection/">Источник</a></td></tr>
 </tbody></table>
 </div>
-<details>
+<details class="dash-fold">
 <summary>По запросу — 17 записей, включая «Мебель Бронь»</summary>
 <div class="table-scroll" role="region" aria-label="Исполнители с ценой по запросу" tabindex="0">
 <table>
@@ -544,6 +574,9 @@
 </div>
 <p><a href="https://docs.google.com/spreadsheets/d/1dB9smsgc1dHVfHrXYOvjNVN8kcKRgyvIkQSR7bIZenk/edit?gid=226071126#gid=226071126">Полное сравнение с плёнками, гарантиями и условиями выезда</a></p>
 <h2 id="audiences">3. Приоритетные аудитории и продукты</h2>
+<p>Приоритет для пилота — заведения с однотипными поверхностями и покупатели новой кухни или дорогого стола.</p>
+<details class="dash-fold"><summary>Матрица аудиторий, ситуаций покупки и каналов</summary>
+<div class="dash-fold-body">
 <div class="table-scroll" role="region" aria-label="3. Приоритетные аудитории и продукты" tabindex="0">
 <table>
 <thead>
@@ -599,7 +632,12 @@
 </tbody></table>
 </div>
 <p>В HoReCa финансовое решение принимает собственник, директор или закупщик. Качество в эксплуатации оценивают управляющий залом и сотрудники уборки. Для гостиницы к согласованию подключаются эксплуатация и housekeeping. До замера полезно получить данные о фактических ремонтах, планах реновации, средствах уборки и допустимом времени недоступности мебели.</p>
+</div>
+</details>
 <h3 id="surface-tests">Что проверять на поверхности</h3>
+<p>До продажи проверьте материал, состояние кромок и фактический режим уборки на образце.</p>
+<details class="dash-fold"><summary>Материалы, испытания и требования для общепита</summary>
+<div class="dash-fold-body">
 <div class="table-scroll" role="region" aria-label="Что проверять на поверхности" tabindex="0">
 <table>
 <thead>
@@ -638,12 +676,26 @@
 </div>
 <p>Демонстрация на автомобильной окраске не подтверждает работу на мебельном лаке или шпоне. Перед монтажом согласовать тестовую наклейку и снятие на запасной детали. Для гарантии зафиксировать материал основания и плёнки, способ монтажа и правила уборки. Срок гарантии и срок фактической службы — разные величины. Например, коммерческая гарантия TuffSkin содержит отдельные условия и исключения по физическим повреждениям плёнки. <a href="https://www.tuffskin.com/wp-content/uploads/2023/12/TuffSkin-Care-and-Maintenance-Warranty-2.pdf">Условия TuffSkin</a></p>
 <p>Для пилота рекомендованы гостевые декоративные поверхности. С 1 сентября 2026 года действуют СанПиН 2.3/2.4.4282-26. Пункт 21 требует уборки столов для посетителей после каждого использования. В пилоте нужно проверять, как плёнка и кромка выдерживают фактическую частоту уборки и применяемые средства. Прямой контакт с пищевой продукцией, зоны подготовки, устойчиво горячие участки и постоянно мокрые швы требуют отдельного подбора и проверки документов на конкретный материал, клей и режим использования. ТР ТС 021/2011 устанавливает требования к рабочим поверхностям технологического оборудования и инвентаря, контактирующим с пищевой продукцией. <a href="https://zpp.rospotrebnadzor.ru/news/federal/593840">Роспотребнадзор</a>, <a href="https://base.garant.ru/414329257/53f89421bbdaf741eb2d1ecc4ddb4c33/">СанПиН, пункт 21</a>, <a href="https://eec.eaeunion.org/upload/medialibrary/6ad/TR-TS-PishevayaProd.pdf">ЕЭК, ТР ТС 021/2011</a></p>
+</div>
+</details>
 <h2 id="economics">4. Размер возможности и экономика</h2>
 <h3 id="market-sizing">Как считать рынок</h3>
+<div class="dash-grid finding-grid">
+  <article class="dash-panel"><p class="dash-kicker">TAM</p><h4>Все подходящие объекты</h4><p>Отдельно новые установки, действующий фонд и замена плёнки.</p></article>
+  <article class="dash-panel"><p class="dash-kicker">SAM</p><h4>Объекты в зоне выезда</h4><p>Учитывать материал, доступность монтажа, бюджет и график.</p></article>
+  <article class="dash-panel"><p class="dash-kicker">SOM</p><h4>Подтверждённый объём работ</h4><p>Сопоставить спрос с мощностью бригады и фактическим чеком.</p></article>
+</div>
+<details class="dash-fold"><summary>Определения и единицы учёта</summary>
+<div class="dash-fold-body">
 <p><strong>TAM</strong> — все подходящие объекты и поверхности по выбранной географии. Считать отдельно новые установки, защиту существующего фонда и плановую замену уже установленной плёнки. Для оценки расходов за год у каждого потока свой знаменатель и частота.</p>
 <p><strong>SAM</strong> — объекты в зоне выезда, где подходят материал, тип поверхности, бюджет и график работ. Для HoReCa единица учёта — физическая локация, а для работ — согласованные предметы и площадь. Отель с рестораном, площадку сети и объект, полученный через партнёра, считать по уникальному адресу и зонам, чтобы избежать дублей.</p>
 <p><strong>SOM</strong> — меньший из объёмов подтверждённого спроса и доступной мощности монтажников, умноженный на фактическую цену. Мощность ограничивают замеры, дорога, смены, раскрой, демонтаж и переделки. В B2C считать отдельно покупки защиты вместе с новой мебелью, заявки на существующие предметы и повторные замены.</p>
+</div>
+</details>
 <h3 id="horeca-funnel">Иллюстративная воронка HoReCa на 100 заведений</h3>
+<p>В базовой модели из 100 заведений 40 подходят по условиям, 6 оплачивают заказ. Расчётная выручка когорты — 555 750 ₽ до расходов.</p>
+<details class="dash-fold"><summary>Открыть расчёт трёх сценариев и допущения</summary>
+<div class="dash-fold-body">
 <p>База — 100 уникальных заведений в зоне работы, до которых удалось дойти с предложением. Квалификация означает подходящую поверхность, доступ к решающему лицу и реальную возможность заказа. Числа ниже — сценарные параметры, которые предстоит заменить фактом. Средняя ставка в базовом сценарии взята для ориентира из публичной цены одного поставщика на барную стойку. Для столов используется только как расчётное допущение. <a href="https://protectwill.ru/zashchita-stoleshnitsy">Прайс ProtectWill</a></p>
 <div class="table-scroll" role="region" aria-label="Иллюстративная воронка HoReCa на 100 заведений" tabindex="0">
 <table>
@@ -706,14 +758,17 @@
 </tbody></table>
 </div>
 <p>Верхний сценарий даёт дробное ожидаемое число заказов как математический результат умножения. Выручка рассчитана до расходов. Период, НДС, производственная мощность и стоимость привлечения в таблицу не заложены. При параметрах базового сценария изменение доли оплат с 10% до 20% меняет выручку когорты с 370 500 до 741 000 ₽. Основные измеряемые параметры — доля подходящих объектов, доля оплат и согласованная смета на объект.</p>
+</div>
+</details>
 <h3 id="b2c-funnel">Иллюстративная воронка B2C</h3>
+<p>Для 100 квалифицированных заявок в трёх сценариях заложено 10, 20 или 30 оплат.</p>
+<details class="dash-fold"><summary>Чеки, выручка и отличия от воронки HoReCa</summary>
+<div class="dash-fold-body">
 <p>На 100 <strong>квалифицированных заявок</strong>, с подходящим материалом и возможностью монтажа, три сценария дают 10, 20 или 30 оплат. При чеках 12 000, 17 000 и 25 000 ₽ выручка составляет 120 000, 340 000 и 750 000 ₽. Чеки и конверсии — допущения. Нижний чек взят для ориентира из открытой цены за обеденный стол. У B2C и HoReCa разные начальные знаменатели, поэтому сценарии показывают чувствительность внутри каждого сегмента. <a href="https://protectwill.ru/zashchita-stoleshnitsy">Прайс ProtectWill</a></p>
+</div>
+</details>
 <h3 id="restaurant-break-even">Порог окупаемости для ресторана</h3>
-<p>Двадцать квадратных столов размером 0,8 × 0,8 м дают 12,8 м² чистой площади. При расчётной ставке 9 500 ₽/м² монтаж обойдётся в 121 600 ₽. На горизонте двух лет это соответствует <strong>60 800 ₽ в год</strong> предотвращённых расходов в простом расчёте без дисконтирования, последующих затрат на плёнку и остаточной стоимости. Если смена покрытия, ночные работы и повторный выезд оплачиваются отдельно, порог вырастет.</p>
-<p>Если исполнитель применит поштучный ориентир 12 000 ₽ за каждый из 20 столов, условная смета составит 240 000 ₽, а двухлетний порог вырастет до 120 000 ₽ в год. Это арифметическое сравнение двух единиц тарификации до договорных скидок. В смете на пилот и на весь зал стоит отдельно подтвердить, используется ставка за площадь или цена за предмет. <a href="https://protectwill.ru/zashchita-stoleshnitsy">Прайс ProtectWill</a></p>
-<p>Для тех же 12,8 м² опубликованные стартовые расценки на полировку и переполировку мрамора дают 15 360–57 600 ₽ за одну операцию до дополнительных расходов. Иллюстративная смета плёнки соответствует примерно 2,1–7,9 таким операциям. Если ресторан редко полирует столы и делает это без потери посадок, обосновать полную оклейку экономией будет сложнее. Для гостиниц с дорогим финишем в модель можно включить документированную стоимость вывода номеров из продажи. <a href="https://ads-gr.ru/prajs-list/">АДС Групп</a>, <a href="https://kala-stone.ru/uslugi/restavraciya-i-polirovka/">Kala Stone</a></p>
-<p>В расчёте клиента сравнивать два сценария. Первый — фактические ожидаемые расходы на ремонт или замену и потерянный маржинальный доход от простоя. Второй — монтаж, демонтаж, повторная защита, оставшиеся повреждения и простой после внедрения. Один и тот же дефект учитывать либо как ремонт, либо как замену в зависимости от реального действия. Простой оценивается по маржинальному доходу, который действительно теряется при недоступности мебели.</p>
-<p>В расчёте подрядчика из выручки в единой базе НДС вычесть материал по раскроенной площади, расходники, труд с замером и дорогой, логистику, комиссию партнёра или расходы на привлечение и ожидаемые переделки. Для малых B2C-заказов особенно важны минимальная стоимость выезда и загрузка маршрута. Для B2B — раскрой, доступ в ночные часы, срок оплаты и условия повторного выезда.</p>
+<p>Введите число и размеры столов, стоимость монтажа и срок. Калькулятор покажет, какая экономия нужна для окупаемости.</p>
     <section class="chart calculator-card" id="calculator-section" aria-labelledby="calculator-heading">
       <h4 id="calculator-heading">Калькулятор окупаемости</h4>
       <form id="calculator" hidden>
@@ -763,7 +818,24 @@
       </div>
       <p class="note">Порог равен стоимости монтажа, поделённой на срок окупаемости. Расходы на обновление плёнки в расчёт не входят.</p>
     </section>
+<details class="dash-fold"><summary>Примеры смет и допущения об окупаемости</summary>
+<div class="dash-fold-body">
+<p>Двадцать квадратных столов размером 0,8 × 0,8 м дают 12,8 м² чистой площади. При расчётной ставке 9 500 ₽/м² монтаж обойдётся в 121 600 ₽. На горизонте двух лет это соответствует <strong>60 800 ₽ в год</strong> предотвращённых расходов в простом расчёте без дисконтирования, последующих затрат на плёнку и остаточной стоимости. Если смена покрытия, ночные работы и повторный выезд оплачиваются отдельно, порог вырастет.</p>
+<p>Если исполнитель применит поштучный ориентир 12 000 ₽ за каждый из 20 столов, условная смета составит 240 000 ₽, а двухлетний порог вырастет до 120 000 ₽ в год. Это арифметическое сравнение двух единиц тарификации до договорных скидок. В смете на пилот и на весь зал стоит отдельно подтвердить, используется ставка за площадь или цена за предмет. <a href="https://protectwill.ru/zashchita-stoleshnitsy">Прайс ProtectWill</a></p>
+<p>Для тех же 12,8 м² опубликованные стартовые расценки на полировку и переполировку мрамора дают 15 360–57 600 ₽ за одну операцию до дополнительных расходов. Иллюстративная смета плёнки соответствует примерно 2,1–7,9 таким операциям. Если ресторан редко полирует столы и делает это без потери посадок, обосновать полную оклейку экономией будет сложнее. Для гостиниц с дорогим финишем в модель можно включить документированную стоимость вывода номеров из продажи. <a href="https://ads-gr.ru/prajs-list/">АДС Групп</a>, <a href="https://kala-stone.ru/uslugi/restavraciya-i-polirovka/">Kala Stone</a></p>
+<p>В расчёте клиента сравнивать два сценария. Первый — фактические ожидаемые расходы на ремонт или замену и потерянный маржинальный доход от простоя. Второй — монтаж, демонтаж, повторная защита, оставшиеся повреждения и простой после внедрения. Один и тот же дефект учитывать либо как ремонт, либо как замену в зависимости от реального действия. Простой оценивается по маржинальному доходу, который действительно теряется при недоступности мебели.</p>
+<p>В расчёте подрядчика из выручки в единой базе НДС вычесть материал по раскроенной площади, расходники, труд с замером и дорогой, логистику, комиссию партнёра или расходы на привлечение и ожидаемые переделки. Для малых B2C-заказов особенно важны минимальная стоимость выезда и загрузка маршрута. Для B2B — раскрой, доступ в ночные часы, срок оплаты и условия повторного выезда.</p>
+</div>
+</details>
 <h2 id="demand-validation">5. Как проверить спрос и выбрать предложение</h2>
+<ol class="dash-grid pilot-steps">
+  <li class="dash-panel"><strong>01 · Интервью</strong><p>Собрать фактические расходы на ремонт и условия уборки.</p></li>
+  <li class="dash-panel"><strong>02 · Пилот</strong><p>Сопоставить оклеенные предметы с контрольными.</p></li>
+  <li class="dash-panel"><strong>03 · Продажа</strong><p>Предложить платный тест и проверить спрос на полный объект.</p></li>
+  <li class="dash-panel"><strong>04 · Решение</strong><p>Оценить качество поверхности, маржу и готовность клиента расширять заказ.</p></li>
+</ol>
+<details class="dash-fold"><summary>Развернуть план пилота, сроки и метрики</summary>
+<div class="dash-fold-body">
 <ol>
 <li><strong>Первые две недели.</strong> Составить список заведений по одному городу, разделив рестораны и отели, новые открытия и работающие объекты. Провести 10–15 разговоров с ответственными за закупку или эксплуатацию. Записать материал, число предметов, реальные счета за ремонт за последний год, частоту повреждений, средства уборки и бюджет. Параллельно собрать сопоставимые сметы подрядчиков и 5–10 интервью с салонами кухонь или дизайнерами. Число интервью — ориентир для разведки, а не статистическая выборка.</li>
 <li><strong>Проверка продукта.</strong> В каждом из нескольких заведений сопоставить 2–4 оклеенных предмета и столько же сопоставимых контрольных. Снять фото при одном освещении, записать исходные дефекты и тип отделки. Применять согласованный режим уборки и фиксировать нагрузку. После установки и через 1, 4 и 8 недель проверить кромки, пятна, царапины, помутнение, время очистки и реакцию персонала. На запасной детали провести демонтаж тестового фрагмента.</li>
@@ -771,10 +843,15 @@
 <li><strong>Решение о масштабировании.</strong> До начала теста согласовать с заказчиком приемлемый внешний вид, допустимое состояние кромок и способы уборки. Переходить к следующей партии, если испытание проходит эти условия, подтверждён вклад заказа после переменных затрат и заказчик готов оплачивать расширение. Первые 4–8 недель показывают раннюю совместимость. Для сезонного и гарантийного ресурса нужна более длительная проверка.</li>
 </ol>
 <p>Метрики пилота — новые дефекты на 100 обслуженных гостей или занятых номеро-ночей, минуты уборки на один предмет, недоступные часы, доля предметов с поднятием кромок, затраты на переделку и фактическая цена. Если нагрузка по столам недоступна, заранее выбрать сопоставимые зоны и указать, как измерялась экспозиция.</p>
+</div>
+</details>
 <h3 id="promotion">Продвижение и проверка запросов</h3>
+<details class="dash-fold"><summary>Каналы, поисковые запросы и проверка сообщений</summary>
+<div class="dash-fold-body">
 <p>В B2C стоит тестировать формулировки, описывающие поверхность и проблему. Например, «защитная плёнка на столешницу», «прозрачная защита мраморного стола», «оклейка кухонной столешницы» и «защита стола от царапин». Запросы про DIY-накладку выделять отдельно от услуги. Отсекать мебельную бронь в значении резервирования товара и нерелевантные запросы об авто и стекле. Собрать частотность по регионам в Вордстате, проверить реальное намерение по выдаче и измерить долю квалифицированных обращений и оплаченных заказов. Частотность в этом исследовании не измерялась. <a href="https://www.yandex.ru/support/direct/ru/keywords/wordstat">Яндекс Вордстат</a></p>
 <p>В HoReCa тестировать два сообщения. Для новых открытий — сохранение согласованного внешнего вида и установка к сдаче объекта. Для действующих заведений — проверка на нескольких предметах с измерением дефектов, уборки и стоимости обслуживания. Первые обращения направлять через действующих мебельных и интерьерных партнёров и собственную базу открытых заведений. Оффер оценивается по готовности оплачивать пилот и масштабирование.</p>
-
+</div>
+</details>
         <footer class="report-footer"><a href="#contents">Вернуться к содержанию</a></footer>
       </article>
     </div>

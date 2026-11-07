@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'sha256-TyaZMnOUyXKRFHUusSfAnrdoiPUiCYXBTa+/nximkwg='; base-uri 'none'; form-action 'none'">
+  <meta name="description" content="Отзывы об оклейке мебели, сценарии покупки и предложения «Мебель Бронь» для сегментов A–D.">
+  <title>Отзывы и сегменты — Мебель Бронь</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <style>
+    html { scroll-padding-top: 1.25rem; }
+    .review-page { width: min(100% - 2rem, 71rem); margin-inline: auto; padding-block: 1.1rem 2rem; }
+    .review-skip { position: absolute; inset: .5rem auto auto .5rem; z-index: 4; padding: .5rem .7rem; background: var(--surface); transform: translateY(-160%); }
+    .review-skip:focus { transform: translateY(0); }
+    .review-reading { position: fixed; inset: 0 0 auto; width: 100%; height: 4px; border: 0; appearance: none; z-index: 3; background: var(--track); }
+    .review-reading::-webkit-progress-bar { background: var(--track); }
+    .review-reading::-webkit-progress-value { background: var(--accent); }
+    .review-reading::-moz-progress-bar { background: var(--accent); }
+    .review-section { margin-top: clamp(1.5rem, 4vw, 2.6rem); }
+    .review-section > h2 { margin: 0 0 .6rem; font-size: clamp(1.4rem, 3.5vw, 2.1rem); letter-spacing: -.025em; line-height: 1.15; }
+    .review-subtitle { margin: 0 0 .85rem; color: var(--muted); max-width: 72ch; }
+    .review-jump { display: flex; flex-wrap: wrap; gap: .35rem .7rem; margin-block: .9rem 0; }
+    .review-jump a { display: inline-block; padding: .3rem .55rem; background: var(--track); border-radius: .4rem; font-size: .87rem; }
+    .review-page .dash-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .review-page .dash-metric small { font-size: .85rem; font-weight: 450; letter-spacing: normal; }
+    .review-grid { display: grid; gap: .8rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .review-grid > * { min-width: 0; }
+    .review-coverage { margin-top: .8rem; }
+    .review-coverage-grid { display: grid; gap: .6rem 1.2rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .review-coverage-grid p { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .2rem .5rem; }
+    .review-coverage-grid strong, .review-bars strong, .review-legend strong { font-variant-numeric: tabular-nums; }
+    .review-note { color: var(--muted); font-size: .87rem; }
+    .review-ring-grid { display: grid; align-items: center; gap: .7rem 1rem; grid-template-columns: minmax(7rem, .65fr) minmax(0, 1.35fr); margin-top: .8rem; }
+    .review-ring-grid .dash-ring { justify-self: center; width: min(100%, 9.8rem); }
+    .review-legend, .review-bars { list-style: none; margin: 0; padding: 0; display: grid; gap: .58rem; }
+    .review-legend li { display: grid; grid-template-columns: .64rem minmax(0, 1fr) auto; align-items: center; gap: .36rem; font-size: .86rem; }
+    .review-legend strong { white-space: nowrap; }
+    .review-legend i { width: .64rem; height: .64rem; border-radius: .18rem; border: 1px solid var(--line); background: var(--key); }
+    .review-bars { margin-block: .85rem .55rem; }
+    .review-bars li > div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .2rem .5rem; font-size: .91rem; }
+    .review-bars .dash-meter, .review-coverage-grid .dash-meter { margin-top: .25rem; }
+    .review-signals { display: grid; gap: .8rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .review-signals > * { min-width: 0; }
+    .review-signals details, .review-card details { margin-bottom: 0; background: var(--page); }
+    .review-links { color: var(--muted); font-size: .87rem; }
+    .review-card { display: flex; flex-direction: column; gap: .3rem; }
+    .review-card > h3 { display: flex; align-items: center; gap: .6rem; }
+    .review-badge { display: inline-grid; place-items: center; width: 2rem; height: 2rem; flex-shrink: 0; border-radius: .48rem; background: var(--track); color: var(--accent); }
+    .review-card .dash-actions { margin-top: auto; padding-top: .5rem; }
+    .review-dl { margin: .45rem 0; }
+    .review-dl > div { padding: .55rem 0; border-bottom: 1px solid var(--line); }
+    .review-dl > div:last-child { border: 0; }
+    .review-dl dt { font-size: .84rem; color: var(--muted); font-weight: 700; }
+    .review-dl dd { margin: .2rem 0 0; }
+    .review-dl :is(dt,dd) { overflow-wrap: anywhere; }
+    .review-method .dash-fold-body { padding-bottom: .8rem; }
+    .review-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: .5rem; margin-top: .8rem; }
+    .review-scroll table { width: 100%; min-width: 33rem; border-collapse: collapse; text-align: left; font-size: .88rem; }
+    .review-scroll caption { text-align: left; padding: .6rem .7rem; font-weight: 700; }
+    .review-scroll :is(th,td) { padding: .5rem .7rem; border-top: 1px solid var(--line); vertical-align: top; }
+    .review-scroll thead { background: var(--track); }
+    .review-scroll td:last-child { text-align: center; font-variant-numeric: tabular-nums; }
+    .review-footer { border-top: 1px solid var(--line); padding-top: .75rem; margin-top: 1.7rem; color: var(--muted); font-size: .89rem; }
+    @media (max-width: 860px) { .review-page .dash-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 760px) {
+      .review-signals { grid-template-columns: minmax(0, 1fr); }
+      .review-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 420px) {
+      .review-coverage-grid, .review-ring-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <progress class="review-reading" id="review-reading" max="100" value="0" aria-label="Прогресс чтения страницы" hidden></progress>
+  <a class="review-skip" href="#main">Перейти к содержанию</a>
+  <div class="review-page">
+    <header class="dash-nav">
+      <a class="dash-brand" href="index.html">Мебель Бронь</a>
+      <nav class="dash-links" aria-label="Разделы сайта">
+        <a href="index.html#research-dashboard">Обзор рынка</a>
+        <a href="reviews.html" aria-current="page">Отзывы и сегменты</a>
+        <a href="index.html#price-comparison">Сравнение цен</a>
+        <a href="index.html#segment-pages">Лендинги A–D</a>
+      </nav>
+    </header>
+    <main id="main">
+      <header class="dash-hero" id="отзывы-клиентские-задачи-и-предложения-мебель-бронь">
+        <p class="dash-kicker">Клиентское исследование · 7 ноября 2026</p>
+        <h1>Отзывы и сегменты</h1>
+        <p>Что клиенты ценят в защите мебели, где сомневаются и какое предложение подходит для каждой ситуации.</p>
+        <div class="dash-actions">
+          <a class="dash-button dash-primary" href="#abcdx-для-мебель-бронь">Посмотреть сегменты A–D</a>
+          <a class="dash-button" href="https://docs.google.com/spreadsheets/d/1dB9smsgc1dHVfHrXYOvjNVN8kcKRgyvIkQSR7bIZenk/edit">Реестр и база отзывов</a>
+        </div>
+      </header>
+      <nav class="review-jump" aria-label="Содержание исследования">
+        <a href="#что-проверили">Выборка</a>
+        <a href="#портреты-боли-и-jtbd">Сигналы клиентов</a>
+        <a href="#abcdx-для-мебель-бронь">Сегменты</a>
+        <a href="#методика-и-источники">Методика</a>
+      </nav>
+
+      <section class="review-section" id="что-проверили" aria-labelledby="sample-title">
+        <h2 id="sample-title">Что проверили</h2>
+        <dl class="dash-metrics">
+          <div class="dash-metric"><dt>Записи реестра</dt><dd>111<small>110 аналогов и «Мебель Бронь»</small></dd></div>
+          <div class="dash-metric"><dt>Карточки с текстами</dt><dd>26<small>Яндекс Карты и 2ГИС</small></dd></div>
+          <div class="dash-metric"><dt>Уникальные тексты</dt><dd>370<small>Из 375 текстов исключены 5 повторов</small></dd></div>
+          <div class="dash-metric"><dt>Прямые отзывы</dt><dd>30<small>Об оклейке мебели и столешниц</small></dd></div>
+        </dl>
+        <div class="review-grid">
+          <figure class="dash-panel" aria-labelledby="types-title">
+            <figcaption><h3 id="types-title">О чём пишут в отзывах</h3></figcaption>
+            <p class="review-note">Доли от 370 уникальных текстов.</p>
+            <div class="review-ring-grid">
+              <div class="dash-ring" aria-hidden="true">
+                <svg viewBox="0 0 100 100" focusable="false">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="var(--track)" stroke-width="12"></circle>
+                  <circle cx="50" cy="50" r="42" pathLength="370" fill="none" stroke="var(--chart-blue)" stroke-width="12" stroke-dasharray="30 340"></circle>
+                  <circle cx="50" cy="50" r="42" pathLength="370" fill="none" stroke="var(--chart-teal)" stroke-width="12" stroke-dasharray="15 355" stroke-dashoffset="-30"></circle>
+                  <circle cx="50" cy="50" r="42" pathLength="370" fill="none" stroke="var(--chart-amber)" stroke-width="12" stroke-dasharray="19 351" stroke-dashoffset="-45"></circle>
+                </svg>
+                <div class="dash-ring-label"><strong>370</strong><small>текстов</small></div>
+              </div>
+              <ul class="review-legend">
+                <li><i aria-hidden="true" style="--key:var(--chart-blue)"></i><span>Оклейка мебели</span><strong>30 · 8,1%</strong></li>
+                <li><i aria-hidden="true" style="--key:var(--chart-teal)"></i><span>Защита без уточнений</span><strong>15 · 4,1%</strong></li>
+                <li><i aria-hidden="true" style="--key:var(--chart-amber)"></i><span>Смежные случаи</span><strong>19 · 5,1%</strong></li>
+                <li><i aria-hidden="true" style="--key:var(--track)"></i><span>Другие услуги или мало деталей</span><strong>306 · 82,7%</strong></li>
+              </ul>
+            </div>
+          </figure>
+          <figure class="dash-panel" aria-labelledby="companies-title">
+            <figcaption><h3 id="companies-title">Прямые отзывы по компаниям</h3></figcaption>
+            <p class="review-note">Количество текстов из 30 профильных отзывов.</p>
+            <ul class="review-bars">
+              <li><div><span>Мебель Бронь, Махачкала</span><strong>14</strong></div><progress class="dash-meter" value="14" max="30" aria-label="Мебель Бронь, 14 из 30 отзывов"></progress></li>
+              <li><div><span>Poliro, Москва</span><strong>12</strong></div><progress class="dash-meter" value="12" max="30" aria-label="Poliro, 12 из 30 отзывов"></progress></li>
+              <li><div><span>GuardTextile, Москва</span><strong>2</strong></div><progress class="dash-meter" value="2" max="30" aria-label="GuardTextile, 2 из 30 отзывов"></progress></li>
+              <li><div><span>BRONIQ, Минск</span><strong>2</strong></div><progress class="dash-meter" value="2" max="30" aria-label="BRONIQ, 2 из 30 отзывов"></progress></li>
+            </ul>
+          </figure>
+        </div>
+        <div class="dash-panel review-coverage" id="coverage" aria-labelledby="coverage-title">
+          <h3 id="coverage-title">Охват поиска по реестру</h3>
+          <div class="review-coverage-grid">
+            <div>
+              <p><span>Яндекс Карты · первичный поиск</span><strong>111 из 111</strong></p>
+              <progress class="dash-meter" value="111" max="111" aria-label="Первичный поиск в Яндекс Картах, 111 из 111 записей"></progress>
+            </div>
+            <div>
+              <p><span>2ГИС · дополнительная проверка</span><strong>37 из 111</strong></p>
+              <progress class="dash-meter" value="37" max="111" aria-label="Дополнительная проверка в 2ГИС, 37 из 111 записей"></progress>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="review-section" id="портреты-боли-и-jtbd" aria-labelledby="signals-title">
+        <h2 id="signals-title">Что влияет на решение клиента</h2>
+        <div class="review-signals">
+          <article class="dash-panel">
+            <h3>Внешний вид и доверие</h3>
+            <p>Клиенты отмечают незаметность покрытия, ровный монтаж и отсутствие пузырей. Критерии приёмки стоит согласовать заранее.</p>
+            <details class="dash-fold"><summary>Примеры и источники</summary><div class="dash-fold-body">
+              <p>Эти критерии встречались в отзывах про оникс, мрамор, массив и шпон. В одном отзыве про кварц описан небольшой дефект после монтажа и его оперативное исправление.</p>
+              <p class="review-links"><a href="https://yandex.com/maps/org/poliro/234125997584/reviews/">Poliro на Яндекс Картах</a> · <a href="https://2gis.ru/moscow/firm/70000001062797294/tab/reviews">Poliro в 2ГИС</a></p>
+            </div></details>
+          </article>
+          <article class="dash-panel">
+            <h3>Когда начинают искать</h3>
+            <p>После покупки кухни, при появлении следов на столешнице и когда столы интенсивно используют дома или в кафе.</p>
+            <details class="dash-fold"><summary>Примеры и источники</summary><div class="dash-fold-body">
+              <p>Клиенты упоминали детские занятия, следы на компакт-плите, клеёнку, полировку и замену. Об услуге узнавали у продавца кухни или через автодетейлинг.</p>
+              <p class="review-links"><a href="https://yandex.com/maps/org/bron_mebel/88977463615/reviews/">Мебель Бронь на Яндекс Картах</a> · <a href="https://2gis.ru/makhachkala/firm/70000001105299044/tab/reviews">Мебель Бронь в 2ГИС</a> · <a href="https://yandex.by/maps/org/broniq/211446788773/reviews/">BRONIQ</a></p>
+            </div></details>
+          </article>
+          <article class="dash-panel">
+            <h3>Когда нужна оценка до выезда</h3>
+            <p>Если есть пятна или повреждения, стоит заранее определить подготовку и объяснить клиенту этапы и условия.</p>
+            <details class="dash-fold"><summary>Примеры и источники</summary><div class="dash-fold-body">
+              <p>Защите могут предшествовать удаление пятен, полировка или реставрация. Клиенты ценят фотографии, согласование времени и правила ухода. В смежных услугах встречались жалобы на дорогой выезд, задержки и повторные работы.</p>
+              <p class="review-links"><a href="https://yandex.com/maps/org/guardtextile/92691672208/reviews/">GuardTextile на Шелепихинской</a> · <a href="https://yandex.com/maps/org/guardtextile/159584749582/reviews/">GuardTextile на Смольной</a> · <a href="https://yandex.com/maps/org/poliro/234125997584/reviews/?page=2">Poliro</a></p>
+            </div></details>
+          </article>
+        </div>
+      </section>
+
+      <section class="review-section" id="abcdx-для-мебель-бронь" aria-labelledby="segments-title">
+        <h2 id="segments-title">Сегменты A–D и предложения</h2>
+        <p class="review-subtitle" id="утп-офферы-и-коммерческие-предложения">Сегменты — рабочие гипотезы. В карточках собраны задачи клиентов и черновики коммерческих предложений. Цену, дату монтажа, выезд и гарантию уточняет менеджер после оценки.</p>
+        <div class="review-grid">
+          <article class="dash-panel review-card">
+            <h3><span class="review-badge">A</span> Новая кухня или ценный стол</h3>
+            <p>Сохранить внешний вид новой поверхности. Предложение — оценка по фото и размерам с выбором финиша.</p>
+            <details class="dash-fold"><summary>Задача клиента, УТП и КП</summary><div class="dash-fold-body">
+              <dl class="review-dl">
+                <div><dt>Кого относим</dt><dd>Владелец новой столешницы или стола из камня, дерева или шпона. Срок понятен, клиент присылает фото и размеры и готов согласовать монтаж.</dd></div>
+                <div><dt>Задача и сомнения</dt><dd>Пользоваться новой мебелью и сохранить её вид. Клиент опасается следов от посуды, изменения блеска, видимых кромок и пузырей. Важны образец на похожей фактуре и понятная приёмка.</dd></div>
+                <div><dt>УТП и оффер</dt><dd>Прозрачная защита с выбором финиша и приёмкой кромок. По фото и размерам оценим работы и согласуем вид, границы покрытия и условия монтажа.</dd></div>
+                <div><dt>КП «Защита новой столешницы»</dt><dd>Проверим кромки и вырезы. В смете укажем покрытие, подготовку, монтаж, выезд и гарантию. При сдаче вместе осмотрим поверхность при боковом свете, проверим кромки и передадим правила ухода. Для оценки пришлите общий вид, фото торца, материал и размеры.</dd></div>
+                <div><dt>Что проверить в CRM</dt><dd>Конверсию из сметы, маржу на выезд и долю приёмок без доработки.</dd></div>
+              </dl>
+            </div></details>
+            <div class="dash-actions"><a class="dash-button" href="segment-a.html">Открыть лендинг A</a></div>
+          </article>
+          <article class="dash-panel review-card">
+            <h3><span class="review-badge">B</span> Кафе и столовые</h3>
+            <p>Защитить столы при постоянном потоке гостей. Предложение — пилот на одном столе и отдельная смета на партию.</p>
+            <details class="dash-fold"><summary>Задача клиента, УТП и КП</summary><div class="dash-fold-body">
+              <dl class="review-dl">
+                <div><dt>Кого относим</dt><dd>Кафе, кофейня или столовая с несколькими поверхностями. До заказа нужны пилот, проверка уборки и согласование с управляющим.</dd></div>
+                <div><dt>Задача и сомнения</dt><dd>Проверить защиту на одном столе перед оклейкой зала. Важны ежедневная уборка, внешний вид, расходы на восстановление и монтаж без лишних перебоев в работе.</dd></div>
+                <div><dt>УТП и оффер</dt><dd>Решение об оклейке всего зала по результату пилота с вашим регламентом уборки. Подготовим отдельные сметы на пилот и партию.</dd></div>
+                <div><dt>КП «Пилот для кафе или столовой»</dt><dd>Выберем стол с типичной нагрузкой. Согласуем окно работ, кромки, средства уборки и срок наблюдения. Зафиксируем состояние до и после, оценим вид и удобство ухода. При положительном результате подготовим график по зонам и смету на партию. Для расчёта пришлите количество столов, размеры, фото и список средств уборки.</dd></div>
+                <div><dt>Что проверить в CRM</dt><dd>Долю пилотов, перешедших в партию, маржу на объект и соблюдение окна работ.</dd></div>
+              </dl>
+            </div></details>
+            <div class="dash-actions"><a class="dash-button" href="segment-b.html">Открыть лендинг B</a></div>
+          </article>
+          <article class="dash-panel review-card">
+            <h3><span class="review-badge">C</span> Семейный стол</h3>
+            <p>Облегчить ежедневный уход за столом. Предложение — две сметы по фото для одной самой используемой поверхности.</p>
+            <details class="dash-fold"><summary>Задача клиента, УТП и КП</summary><div class="dash-fold-body">
+              <dl class="review-dl">
+                <div><dt>Кого относим</dt><dd>Семья с детьми или внуками. Решение об оклейке одной поверхности зависит от бюджета и сравнения с привычными способами защиты.</dd></div>
+                <div><dt>Задача и сомнения</dt><dd>Проще ухаживать за столом после еды, игр и занятий. Клиент сравнивает вид и удобство с клеёнкой. Важны цена одной поверхности, аккуратный монтаж и простые правила ухода.</dd></div>
+                <div><dt>УТП и оффер</dt><dd>Защита самой используемой поверхности с понятным составом работ. Одна смета на верх стола, вторая с кромками или дополнительной поверхностью, если материал это позволяет.</dd></div>
+                <div><dt>КП «Один стол для всей семьи»</dt><dd>Подберём прозрачное покрытие, покажем, какие зоны входят в работу, и отдельно укажем монтаж и выезд. Объясним уход и допустимые нагрузки. Для расчёта пришлите фото сверху и с края, размеры и расскажите, что чаще всего оставляет следы.</dd></div>
+                <div><dt>Что проверить в CRM</dt><dd>Конверсию сметы на одну поверхность, маржу с учётом минимальной стоимости выезда и время менеджера.</dd></div>
+              </dl>
+            </div></details>
+            <div class="dash-actions"><a class="dash-button" href="segment-c.html">Открыть лендинг C</a></div>
+          </article>
+          <article class="dash-panel review-card">
+            <h3><span class="review-badge">D</span> Повреждённая столешница</h3>
+            <p>Понять, можно ли восстановить и защитить столешницу. Предложение — оценка по фото и отдельная смета на подготовку.</p>
+            <details class="dash-fold"><summary>Задача клиента, УТП и КП</summary><div class="dash-fold-body">
+              <dl class="review-dl">
+                <div><dt>Кого относим</dt><dd>Владелец уже повреждённой или технически сложной поверхности. Возможны несовместимость, дорогостоящая подготовка и расхождение ожиданий.</dd></div>
+                <div><dt>Задача и сомнения</dt><dd>Оценить возможность восстановления и защиты без замены. Клиент опасается потратить деньги на выезд и получить покрытие поверх заметных царапин, сколов или пятен.</dd></div>
+                <div><dt>УТП и оффер</dt><dd>Проверка основания по фото и отдельная смета на подготовку. При необходимости осмотра согласуем его стоимость и выезд заранее.</dd></div>
+                <div><dt>КП «Оценка повреждённой столешницы»</dt><dd>Пришлите общий вид, крупный план дефекта при боковом свете, фото торца, материал и описание прежних попыток ремонта. Оценим возможность монтажа и необходимость осмотра. Подготовку укажем отдельно, согласуем ожидаемый результат и предложим варианты при несовместимом основании.</dd></div>
+                <div><dt>Что проверить в CRM</dt><dd>Долю технически выполнимых заявок, затраты на диагностику и переделки.</dd></div>
+              </dl>
+            </div></details>
+            <div class="dash-actions"><a class="dash-button" href="segment-d.html">Открыть лендинг D</a></div>
+          </article>
+        </div>
+        <details class="dash-fold">
+          <summary>Сегмент X и проверка гипотез</summary>
+          <div class="dash-fold-body">
+            <p>К X относятся запросы вне услуги монтажа прозрачной плёнки, например оптовая покупка рулонов, обучение или задача для другого покрытия. В CRM стоит фиксировать нужную работу и повторяемость обращений.</p>
+            <p>Для A–D сверяйте гипотезы по марже после учёта плёнки, раскроя, труда, выезда и переделок, по конверсии из сметы, сроку решения и удовлетворённости после монтажа.</p>
+            <p>Формулировки о стойкости и уходе уточняют по спецификации плёнки и результатам согласованной пробы.</p>
+            <p class="review-links"><a href="https://nextmovetheory.com/library/canon/abcdx-segmentation/abcdx-segmentation-key-theses">Принципы ABCDX</a></p>
+          </div>
+        </details>
+      </section>
+
+      <section class="review-section review-method" id="методика-и-источники" aria-labelledby="method-title">
+        <h2 id="method-title">Методика и источники</h2>
+        <details class="dash-fold">
+          <summary>Как собиралась выборка</summary>
+          <div class="dash-fold-body">
+            <p>111 записей прошли первичный поиск в Яндекс Картах. По 37 есть отдельная проверка в 2ГИС. Карточки сверяли по домену, телефону, адресу и виду деятельности. Одноимённые организации исключали. Для ряда стран сопоставимые карточки в 2ГИС не подтверждены.</p>
+            <p>Из 375 текстов по 26 карточкам исключили 5 повторов. Категория «Защита без уточнений» объединяет тексты, где авторы не назвали способ или объект.</p>
+            <p>Отзывы показывают опыт авторов. Рыночная доля, конверсия, частота дефектов и стойкость к конкретным средствам требуют отдельных данных.</p>
+            <p class="review-links"><a href="https://docs.google.com/spreadsheets/d/1dB9smsgc1dHVfHrXYOvjNVN8kcKRgyvIkQSR7bIZenk/edit">Реестр и база отзывов</a></p>
+          </div>
+        </details>
+        <details class="dash-fold">
+          <summary>Карточки компаний и границы покрытия</summary>
+          <div class="dash-fold-body">
+            <div class="review-scroll" role="region" aria-label="Тексты и прямые отзывы по компаниям" tabindex="0">
+              <table>
+                <caption>Проверка компаний с прямыми отзывами</caption>
+                <thead><tr><th scope="col">Компания</th><th scope="col">Просмотренные тексты</th><th scope="col">Прямые уникальные</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Мебель Бронь, Махачкала</th><td>12 на Яндексе и 19 в 2ГИС, в том числе 4 межплощадочных повтора</td><td>14</td></tr>
+                  <tr><th scope="row">Poliro, Москва</th><td>57 на Яндексе и 41 в 2ГИС</td><td>12</td></tr>
+                  <tr><th scope="row">GuardTextile, Москва</th><td>46 на двух карточках Яндекса, 0 в проверенной карточке 2ГИС</td><td>2</td></tr>
+                  <tr><th scope="row">BRONIQ, Минск</th><td>5 на Яндексе</td><td>2</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>По сети «Ленремонт» просмотрены первые 50 из 2 439 текстов Яндекс Карт и первые 11 из 110 текстов 2ГИС на двух карточках. В этой выборке профильный отзыв не выделен.</p>
+            <p class="review-links"><a href="https://yandex.com/maps/org/lenremont/3295465178/reviews/">Ленремонт на Яндекс Картах</a> · <a href="https://2gis.ru/spb/firm/70000001058962565/tab/reviews">Ленремонт в 2ГИС</a></p>
+            <p>В проверенных карточках Nova Wrap в Дубае текстов нет. У Flameco Group есть один текст об отделочных материалах. Прямых отзывов по дальней зарубежной выборке не выявлено.</p>
+            <p class="review-links"><a href="https://yandex.com/maps/org/nova_wrap/76446526365/reviews/">Nova Wrap на Яндекс Картах</a> · <a href="https://2gis.ae/dubai/firm/70000001088450016/tab/reviews">Nova Wrap в 2ГИС</a> · <a href="https://2gis.ae/dubai/firm/70000001082893685/tab/reviews">Flameco Group в 2ГИС</a></p>
+          </div>
+        </details>
+      </section>
+    </main>
+    <footer class="review-footer">
+      <p>Мебель Бронь · Исследование рынка · <a href="index.html#research-dashboard">К обзору рынка</a></p>
+    </footer>
+  </div>
+  <script>
+    const progress = document.getElementById('review-reading');
+    function updateReading() {
+      const root = document.documentElement;
+      const distance = root.scrollHeight - root.clientHeight;
+      progress.value = distance > 0 ? (root.scrollTop / distance) * 100 : 0;
+    }
+    progress.hidden = false;
+    addEventListener('scroll', updateReading, { passive: true });
+    addEventListener('resize', updateReading);
+    document.addEventListener('toggle', updateReading, true);
+    updateReading();
+  </script>
+</body>
+</html>

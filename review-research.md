@@ -1,7 +1,7 @@
 ---
 title: Отзывы и сегментация клиентов «Мебель Бронь»
 lang: ru
-permalink: /reviews.html
+permalink: /reviews-source.html
 ---
 
 # Отзывы, клиентские задачи и предложения «Мебель Бронь»
