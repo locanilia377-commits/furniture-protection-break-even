@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>Окупаемость защиты столешниц</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: system-ui, sans-serif;
+      --page: #f3f6fa;
+      --surface: #fff;
+      --ink: #182537;
+      --muted: #526477;
+      --line: #d6e1ec;
+      --track: #e6eef6;
+      --accent: #285bab;
+      --selected: #e6efff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --page: #101721;
+        --surface: #172331;
+        --ink: #eef4fc;
+        --muted: #b1c1d4;
+        --line: #354960;
+        --track: #26384c;
+        --accent: #8bb5ff;
+        --selected: #213d62;
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--page); color: var(--ink); line-height: 1.5; }
+    main { max-width: 55rem; margin: 0 auto; padding: clamp(1rem, 5vw, 3rem); }
+    h1 { margin: 0; font-size: clamp(1.65rem, 4vw, 2.6rem); line-height: 1.12; }
+    .context, .note { color: var(--muted); }
+    .context { margin: 0.7rem 0 1.6rem; }
+    .chart { border: 1px solid var(--line); border-radius: 1.15rem; background: var(--surface); padding: clamp(0.8rem, 4vw, 2rem); }
+    fieldset { min-inline-size: 0; margin: 0; padding: 0; border: 0; }
+    legend { margin-bottom: 0.65rem; padding: 0; font-weight: 650; }
+    input[type="radio"] {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      clip-path: inset(50%);
+    }
+    input[type="radio"] + label {
+      display: inline-block;
+      margin: 0 0.2rem 0.4rem 0;
+      padding: 0.4rem 0.55rem;
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    input[type="radio"]:checked + label { border-color: var(--accent); background: var(--selected); color: var(--ink); }
+    input[type="radio"]:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .plot { --rate: 9500; display: grid; gap: 0.5rem; margin-top: 1rem; }
+    #rate-low:checked ~ .plot { --rate: 7500; }
+    #rate-high:checked ~ .plot { --rate: 11000; }
+    .row { display: grid; grid-template-columns: 3.65rem minmax(0, 1fr) 5.65rem; align-items: center; gap: 0.45rem; }
+    .track { block-size: 0.75rem; overflow: hidden; border-radius: 1rem; background: var(--track); }
+    .bar { display: block; block-size: 100%; inline-size: calc(var(--rate) * 12.8% / var(--years) / 1500); border-radius: inherit; background: var(--accent); transition: inline-size 150ms ease; }
+    .value { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .value span { display: none; }
+    #rate-low:checked ~ .plot [data-rate="7500"],
+    #rate-base:checked ~ .plot [data-rate="9500"],
+    #rate-high:checked ~ .plot [data-rate="11000"] { display: inline; }
+    .axis { color: var(--muted); font-size: 0.75rem; }
+    .axis span { grid-column: 2; display: flex; justify-content: space-between; gap: 0.2rem; white-space: nowrap; }
+    .note { margin: 1rem 0 0; font-size: 0.875rem; }
+    @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Сколько должен экономить ресторан за год</h1>
+    <p class="context">Защита 20 столешниц общей площадью 12,8 м²</p>
+    <section class="chart" aria-label="Порог окупаемости">
+      <fieldset>
+        <legend>Расчётная ставка монтажа</legend>
+        <input id="rate-low" type="radio" name="rate" value="7500">
+        <label for="rate-low">7 500 ₽/м²</label>
+        <input id="rate-base" type="radio" name="rate" value="9500" checked>
+        <label for="rate-base">9 500 ₽/м²</label>
+        <input id="rate-high" type="radio" name="rate" value="11000">
+        <label for="rate-high">11 000 ₽/м²</label>
+        <div class="plot" aria-label="Необходимая годовая экономия по срокам окупаемости" aria-live="polite">
+          <div class="row" data-years="1" style="--years:1">
+            <span>1 год</span>
+            <div class="track" aria-hidden="true"><span class="bar"></span></div>
+            <span class="value">
+              <span data-rate="7500">96 000 ₽</span>
+              <span data-rate="9500">121 600 ₽</span>
+              <span data-rate="11000">140 800 ₽</span>
+            </span>
+          </div>
+          <div class="row" data-years="2" style="--years:2">
+            <span>2 года</span>
+            <div class="track" aria-hidden="true"><span class="bar"></span></div>
+            <span class="value">
+              <span data-rate="7500">48 000 ₽</span>
+              <span data-rate="9500">60 800 ₽</span>
+              <span data-rate="11000">70 400 ₽</span>
+            </span>
+          </div>
+          <div class="row" data-years="3" style="--years:3">
+            <span>3 года</span>
+            <div class="track" aria-hidden="true"><span class="bar"></span></div>
+            <span class="value">
+              <span data-rate="7500">32 000 ₽</span>
+              <span data-rate="9500">40 533 ₽</span>
+              <span data-rate="11000">46 933 ₽</span>
+            </span>
+          </div>
+          <div class="row axis" aria-hidden="true"><span><b>0</b><b>150 тыс. ₽/год</b></span></div>
+        </div>
+      </fieldset>
+      <p class="note">Порог равен стоимости монтажа, поделённой на срок окупаемости. Расходы на обновление плёнки в расчёт не входят.</p>
+    </section>
+  </main>
+</body>
+</html>
