@@ -37,7 +37,7 @@ function calculate(m,patch={}){
  row('cpc','Стоимость посетителя','cpa → CPC',i.traffic>0?(b.buyers*b.arpc-T)/i.traffic:null,v=>({cpc:v}),'money','В исходном шаблоне cpa — стоимость входящей единицы. В этой модели это CPC, а не CAC.')
  ];
  // A target COGS cannot reduce separately preserved expenses below zero.
- const cog=rows.find(x=>x.key==='cogs');if(cog.target!==null&&cog.target<i.service_reserve+i.price*i.variable_rate){cog.target=null;cog.status='impossible';cog.outcome=null;}
+ const cog=rows.find(x=>x.key==='cogs');if(cog.target!==null&&cog.target<i.service_reserve+i.price*i.variable_rate){cog.target=null;cog.status='impossible';cog.outcome=null;cog.slots=null;}
  const sensitivity=[
  ['price','Чек +10%',{price:i.price*1.1}],
  ['cogs','Прямые затраты −10%',{direct:b.cogs*.9-i.service_reserve-i.price*i.variable_rate}],
@@ -45,7 +45,7 @@ function calculate(m,patch={}){
  ['cpc','CPC −10%',{cpc:i.cpc*.9}],
  ['traffic','Посетители +10%',{traffic:i.traffic*1.1}],
  ['first_cost','Первая продажа −10%',{first_cost:i.first_cost*.9}]
- ].map(([key,label,p])=>({key,label,profit:calc(m,{...patch,...p}).profit,delta:calc(m,{...patch,...p}).profit-b.profit}));
+ ].map(([key,label,p])=>{const possible=Object.values(p).every(v=>finite(v)&&v>=0),profit=possible?calc(m,{...patch,...p}).profit:null;return {key,label,profit,delta:profit===null?null:profit-b.profit};});
  const unit=i.price-(i.direct+i.service_reserve+i.price*i.variable_rate)-i.first_cost;
  const fixedOrders=unit>0?Math.ceil((i.target_profit+b.ac+b.overhead)/unit-1e-9):null;
  const firstOrders=unit>0?Math.ceil((i.target_profit+b.ac+b.overhead+i.preparation)/unit-1e-9):null;
