@@ -2,7 +2,13 @@
 'use strict';
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
 const fmt=(n,d=0)=>Number.isFinite(n)?new Intl.NumberFormat('ru-RU',{maximumFractionDigits:d}).format(n):'—',money=(n,d=0)=>fmt(n,d)+' ₽',pct=(n,d=1)=>Number.isFinite(n)?fmt(n*100,d)+'%':'—',clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-let m=JSON.parse($('#model-data').textContent),original=JSON.parse(JSON.stringify(m)),r,selectedMetric='conversion',active='canvas',hyp='H01',currentCanvasBlocks=[];
+let m;
+try{m=JSON.parse($('#model-data').textContent);}catch(error){
+ document.title='Модель не подготовлена';
+ $('#content').innerHTML='<section class="panel" role="alert"><h2>Открыт исходный шаблон</h2><p>Этот файл ещё не содержит данных модели. Откройте готовый файл «Защита_мебели_Модель_бизнеса.html» из комплекта.</p></section>';
+ return;
+}
+let original=JSON.parse(JSON.stringify(m)),r,selectedMetric='conversion',active='canvas',hyp='H01',currentCanvasBlocks=[];
 const states={candidate:['Кандидат на проверку',''],capacity:['Не помещается в мощность','warn'],impossible:['Недостижимо одним рычагом','bad'],horizon:['Требуется окно повторов','warn']};
 const head=(title,sub,badge='Типовые значения')=>'<div class="pane-head"><div><h2>'+title+'</h2><p>'+sub+'</p></div><span class="pill">'+badge+'</span></div>';
 const list=items=>'<ul>'+items.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
@@ -103,6 +109,8 @@ $('#content').addEventListener('click',e=>{
 });
 document.querySelectorAll('.tab').forEach((b,n)=>{b.addEventListener('click',()=>tab(b.dataset.pane));b.addEventListener('keydown',e=>{const all=[...document.querySelectorAll('.tab')];let j=e.key==='ArrowRight'||e.key==='ArrowDown'?(n+1)%all.length:e.key==='ArrowLeft'||e.key==='ArrowUp'?(n+all.length-1)%all.length:e.key==='Home'?0:e.key==='End'?all.length-1:null;if(j!==null){e.preventDefault();all[j].focus();tab(all[j].dataset.pane);}});});
 $('#close-dialog').addEventListener('click',()=>$('#detail').close());$('#print').addEventListener('click',()=>window.print());
+$('#download-model')?.addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(m,null,2)],{type:'application/json;charset=utf-8'})),link=document.createElement('a');link.href=url;link.download=(m.meta.slug||'business-model')+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+$('#access-audit')?.addEventListener('click',()=>open('Доступы и исходные данные','Что с доступами','<div class="table-wrap"><table><thead><tr><th>Материал</th><th>Статус</th><th>Влияние</th><th>Действие</th></tr></thead><tbody>'+(m.access_audit||[]).map(row=>'<tr>'+['item','status','impact','action'].map(key=>'<td>'+esc(row[key])+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'));
 $('#sources').addEventListener('click',()=>open('Источники и статусы','На чём построена модель',m.sources.map(s=>'<p><a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.name)+'</a><br><span class="basis">'+esc(s.kind)+'</span></p>').join('')+'<p class="basis">'+esc(m.meta.basis)+'</p>'));
 $('#edit-inputs').addEventListener('click',()=>{
  const fields=[['traffic','Посетители / месяц'],['conversion','Посетитель → покупатель, %'],['price','Средний чек, ₽'],['direct','Прямые без процентов и резерва, ₽'],['variable_rate','Процентные статьи, %'],['service_reserve','Сервисный резерв / заказ, ₽'],['first_cost','Первая продажа / клиент, ₽'],['cpc','CPC, ₽'],['fixed','Постоянные / месяц, ₽'],['tracking','Сопровождение / месяц, ₽'],['target_profit','Цель прибыли / месяц, ₽'],['preparation','Подготовка разово, ₽']];
