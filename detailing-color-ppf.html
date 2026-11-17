@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-release="detailing-studio-inter-20261118">
+<html lang="ru" data-release="detailing-pilot-link-20261118">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -331,6 +331,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .pilot-features { list-style: none; margin: 0 0 26px; padding: 0; }
 .pilot-features li { padding: 9px 0; border-bottom: 1px solid var(--studio-line); color: #e9dfd2; }
 .pilot-features li::before { content: "—"; color: var(--studio-gold); margin-right: 11px; }
+.pilot-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.pilot-actions .studio-button { max-width: 100%; min-height: 48px; white-space: normal; }
 .studio-footer .footer {
   margin: 0; border: 0; padding: 26px 0 34px; color: var(--studio-muted);
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
@@ -502,7 +504,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
             <li>Вклад на час мастера по услугам</li>
             <li>Утверждение плана и журнал изменений</li>
           </ul>
-          <a class="studio-button studio-button-outline" href="#calculator">Посмотреть расчёт <span aria-hidden="true">↗</span></a>
+          <div class="pilot-actions">
+            <a class="studio-button studio-button-primary" id="pilot-sheet-link" href="https://docs.google.com/spreadsheets/d/1R-0ubQTaXnA-f50lgIhvd9jquQvF6nic090F2nc_ozI/edit?gid=924321072#gid=924321072" target="_blank" rel="noopener noreferrer">Открыть рабочую таблицу <span aria-hidden="true">↗</span></a>
+            <a class="studio-button studio-button-outline" href="#calculator">Посмотреть расчёт <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
       </div>
     </section>
