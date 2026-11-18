@@ -112,11 +112,125 @@ $('#close-dialog').addEventListener('click',()=>$('#detail').close());$('#print'
 $('#download-model')?.addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(m,null,2)],{type:'application/json;charset=utf-8'})),link=document.createElement('a');link.href=url;link.download=(m.meta.slug||'business-model')+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 $('#access-audit')?.addEventListener('click',()=>open('Доступы и исходные данные','Что с доступами','<div class="table-wrap"><table><thead><tr><th>Материал</th><th>Статус</th><th>Влияние</th><th>Действие</th></tr></thead><tbody>'+(m.access_audit||[]).map(row=>'<tr>'+['item','status','impact','action'].map(key=>'<td>'+esc(row[key])+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'));
 $('#sources').addEventListener('click',()=>open('Источники и статусы','На чём построена модель',m.sources.map(s=>'<p><a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.name)+'</a><br><span class="basis">'+esc(s.kind)+'</span></p>').join('')+'<p class="basis">'+esc(m.meta.basis)+'</p>'));
-$('#edit-inputs').addEventListener('click',()=>{
- const fields=[['traffic','Посетители / месяц'],['conversion','Посетитель → покупатель, %'],['price','Средний чек, ₽'],['direct','Прямые без процентов и резерва, ₽'],['variable_rate','Процентные статьи, %'],['service_reserve','Сервисный резерв / заказ, ₽'],['first_cost','Первая продажа / клиент, ₽'],['cpc','CPC, ₽'],['fixed','Постоянные / месяц, ₽'],['tracking','Сопровождение / месяц, ₽'],['target_profit','Цель прибыли / месяц, ₽'],['preparation','Подготовка разово, ₽']];
- open('Общие параметры','Изменить типовые значения','<form id="params-form" class="dialog-form">'+fields.map(([k,label])=>'<label>'+label+'<input name="'+k+'" type="number" min="0" step="any" required value="'+(k==='conversion'||k==='variable_rate'?m.inputs[k]*100:m.inputs[k])+'"></label>').join('')+'<button class="btn primary" type="submit">Пересчитать все модели</button><button class="btn" type="button" id="reset-params">Вернуть исходные значения</button></form><p id="params-error" class="error" role="alert"></p>');
- $('#params-form').addEventListener('submit',e=>{e.preventDefault();const next=JSON.parse(JSON.stringify(m));for(const[k]of fields){const v=Number(e.target.elements.namedItem(k).value);next.inputs[k]=k==='conversion'||k==='variable_rate'?v/100:v;}try{NicheModel.validate(next);m=next;render();$('#detail').close();}catch(err){$('#params-error').textContent=err.message;}});
- $('#reset-params').addEventListener('click',()=>{m=JSON.parse(JSON.stringify(original));render();$('#detail').close();});
+$('#edit-inputs').addEventListener('click', () => {
+ const fields = [
+  ['traffic', 'Посетители / месяц', 'Число целевых переходов за месяц. По нему считаются новые покупатели и расходы на рекламу.'],
+  ['conversion', 'Посетитель → покупатель, %', 'Доля посетителей, которые совершили первую покупку. Введите 3,5 для 3,5%. Меняет число новых покупателей.'],
+  ['price', 'Средний чек, ₽', 'Средняя выручка за одну продажу. Меняет выручку и расходы, начисляемые в процентах от чека.'],
+  ['direct', 'Прямые без процентов и резерва, ₽', 'Затраты на одну продажу в рублях, например материалы, труд или доставка. Вычитаются из чека отдельно от процентных статей и резерва.'],
+  ['variable_rate', 'Процентные статьи, %', 'Суммарная доля расходов от чека, например комиссий и платежей. Вычитается из выручки по каждой продаже.'],
+  ['service_reserve', 'Сервисный резерв / заказ, ₽', 'Плановая сумма на исправления, возвраты или поддержку по одной продаже. Входит в затраты на каждую продажу.'],
+  ['first_cost', 'Первая продажа / клиент, ₽', 'Затраты на доведение клиента до покупки, например консультация или оформление заказа. Списываются один раз на нового покупателя сверх рекламы.'],
+  ['cpc', 'CPC, ₽', 'Средняя цена одного перехода. Умножается на переходы и даёт рекламный бюджет месяца.'],
+  ['fixed', 'Постоянные / месяц, ₽', 'Постоянные расходы за месяц, например аренда и связь. Вычитаются даже при нуле заказов.'],
+  ['tracking', 'Сопровождение / месяц, ₽', 'Отдельный месячный бюджет на ведение модели или проекта. Вычитается из результата месяца. Если уже включён в постоянные расходы, укажите 0.'],
+  ['target_profit', 'Цель прибыли / месяц, ₽', 'Желаемая прибыль. Задаёт объём продаж для цели и целевые значения в таблице Ханина.'],
+  ['preparation', 'Подготовка разово, ₽', 'Разовые затраты на запуск. Увеличивают объём продаж для цели первого цикла с учётом подготовки.']
+ ];
+ const percentFields = new Set(['conversion', 'variable_rate']);
+ const displayed = Object.fromEntries(fields.map(([key]) => [key, percentFields.has(key)
+  ? Number((m.inputs[key] * 100).toPrecision(15))
+  : m.inputs[key]]));
+ const fieldMarkup = fields.map(([key, label, hint]) => `
+  <div class="parameter-field">
+   <label for="param-${key}">${label}</label>
+   <input id="param-${key}" name="${key}" type="number" min="0" step="any" ${key === 'conversion' ? 'max="100"' : ''}
+    required value="${displayed[key]}" aria-describedby="hint-${key}" inputmode="decimal">
+   <small id="hint-${key}">${hint}</small>
+  </div>`).join('');
+
+ const example = NicheModel.calc(original);
+ const salesCosts = example.buyers * (example.inputs.first_cost + (example.inputs.apc - 1) * example.inputs.repeat_cost);
+ open('Общие параметры', 'Изменить типовые значения', `
+  <section class="params-guide" aria-labelledby="params-guide-title">
+   <h3 id="params-guide-title">Как пользоваться</h3>
+   <p><b>Единица продажи.</b> ${esc(m.meta.unit || 'Одна покупка')}</p>
+   <ol class="params-steps">
+    <li>Введите переходы, конверсию и средний чек за один месяц.</li>
+    <li>Укажите расходы. Для 3,5% введите <b>3,5</b> или <b>3.5</b>, в зависимости от браузера.</li>
+    <li>Нажмите <b>«Пересчитать все модели»</b>. Сравните результат и объём для цели. Если мощность задана, проверьте плановые слоты.</li>
+   </ol>
+   <div class="params-preview">
+    <h3>Схема расчёта по введённым значениям</h3>
+    <ol class="params-flow" aria-label="От переходов к результату месяца">
+     <li><span>Переходы</span><strong data-param-preview="traffic">—</strong></li>
+     <li><span>Новые покупатели</span><strong data-param-preview="buyers">—</strong></li>
+     <li><span>Выручка</span><strong data-param-preview="revenue">—</strong></li>
+     <li><span>Результат месяца</span><strong data-param-preview="profit">—</strong></li>
+    </ol>
+    <p>Схема обновляется при вводе. Результат показан до разовой подготовки. Объём с её учётом смотрите в «Экономике заказа».</p>
+   </div>
+   <details class="params-example">
+    <summary>Разобрать расчёт на исходных значениях</summary>
+    <p>${fmt(example.inputs.traffic, 2)} переходов при конверсии ${pct(example.inputs.conversion, 3)} дают ${fmt(example.buyers, 2)} новых покупателей. Объём продаж — ${fmt(example.orders, 2)} при среднем чеке ${money(example.inputs.price, 2)}.</p>
+    <p>Из выручки ${money(example.revenue, 2)} вычитаются себестоимость ${money(example.orders * example.cogs, 2)}, расходы на продажи ${money(salesCosts, 2)}, реклама ${money(example.ac, 2)} и расходы месяца ${money(example.overhead, 2)}. Результат — <b>${money(example.profit, 2)}</b>.</p>
+    <p>Кнопка «Вернуть исходные значения» восстановит исходный сценарий. Чтобы сохранить свой, после пересчёта нажмите «Данные модели ↓» внизу страницы.</p>
+   </details>
+  </section>
+  <form id="params-form" class="dialog-form">
+   ${fieldMarkup}
+   <div class="params-actions">
+    <div id="params-error" class="error" role="alert" hidden></div>
+    <button class="btn primary" type="submit">Пересчитать все модели</button>
+    <button class="btn" type="button" id="reset-params">Вернуть исходные значения</button>
+   </div>
+  </form>`);
+
+ $('#detail').scrollTop = 0;
+ const form = $('#params-form');
+ const error = $('#params-error');
+ const preview = [...$('#detail-content').querySelectorAll('[data-param-preview]')];
+
+ function readInputs() {
+  return Object.fromEntries(fields.map(([key]) => {
+   const value = form.elements.namedItem(key).valueAsNumber;
+   if (!percentFields.has(key)) return [key, value];
+   return [key, value === displayed[key] ? m.inputs[key] : value / 100];
+  }));
+ }
+
+ function updatePreview() {
+  const inputs = readInputs();
+  const valid = !form.querySelector(':invalid') && inputs.variable_rate < 1;
+  const result = valid ? NicheModel.calc(m, inputs) : null;
+  const values = result ? {
+   traffic: fmt(result.inputs.traffic, 2),
+   buyers: fmt(result.buyers, 2),
+   revenue: money(result.revenue),
+   profit: money(result.profit)
+  } : null;
+  preview.forEach(node => { node.textContent = values?.[node.dataset.paramPreview] ?? '—'; });
+ }
+
+ form.addEventListener('input', () => {
+  error.hidden = true;
+  updatePreview();
+ });
+ form.addEventListener('submit', event => {
+  event.preventDefault();
+  const inputs = readInputs();
+  if (inputs.variable_rate >= 1) {
+   error.textContent = 'Процентные статьи должны быть ниже 100%.';
+   error.hidden = false;
+   return;
+  }
+  const next = {...m, inputs: {...m.inputs, ...inputs}};
+  try {
+   NicheModel.validate(next);
+   m = next;
+   render();
+   $('#detail').close();
+  } catch (err) {
+   error.textContent = err.message;
+   error.hidden = false;
+  }
+ });
+ $('#reset-params').addEventListener('click', () => {
+  m = JSON.parse(JSON.stringify(original));
+  render();
+  $('#detail').close();
+ });
+ updatePreview();
 });
 render();tab(location.hash.slice(1)||'canvas');
 })();
